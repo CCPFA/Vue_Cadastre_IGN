@@ -1,6 +1,6 @@
 {
   "name": "Vuecadastre",
   "tagline": "Une simple page pour afficher le cadastre français à partir du service openstreetmaps http://cadastre.openstreetmap.fr",
-  "body": "# VueCadastre\r\nUne simple page en Leaflet pour afficher le cadastre français à partir du serive openstreetmaps.\r\n\r\n[Essayer](https://github.com/blob/master/VueCadastre.html)\r\n",
+  "body": "# VueCadastre\r\nUne simple page en Leaflet pour afficher le cadastre français à partir du serive openstreetmaps.\r\n\r\n[Essayer](https://github.com/manuamador/VueCadastre/blob/master/VueCadastre.html)",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
