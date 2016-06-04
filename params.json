@@ -1,6 +1,0 @@
-{
-  "name": "Vuecadastre",
-  "tagline": "Une simple page pour afficher le cadastre français à partir du service openstreetmaps http://cadastre.openstreetmap.fr",
-  "body": "<meta http-equiv=\"refresh\" content=\"0; URL='./VueCadastre.html'\" />",
-  "note": "Don't delete this file! It's used internally to help with page regeneration."
-}
