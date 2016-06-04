@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><style>body {    padding: 0;    margin: 0;}
+html, body, #map {
+    height: 100%;}
+
+</style><head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />  <title>Vue Cadastre DGFiP</title>    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/css/font-awesome.min.css' rel='stylesheet' />
+    <!-- <link href='http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' rel='stylesheet' /> --></head>
+
+<body>    <div id="map"></div>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="https://github.com/CliffCloud/Leaflet.LocationShare/blob/master/Leaflet.LocationShare.js"></script>
+    <script src="./parcelle.geojson" type="text/javascript"></script>
+    <script src="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-hash/v0.2.1/leaflet-hash.js'></script>
+    <script>
+        var cadastre = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/tout/{z}/{x}/{y}.png', {
+              maxZoom: 22,
+              attribution: 'cadastre.gouv.fr',
+            }),
+            osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	            maxZoom: 19,
+	            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }),
+
+            sat = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+              maxZoom: 18,
+	             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+            });
+
+        var map = L.map('map', {
+            center: [45.18, 5.72],
+            zoom: 18,
+            layers: [sat,osm,cadastre]
+        });
+        var  hash = new  L.Hash(map);
+        var baseMaps = {
+            "Satellite": sat,
+            "OpenStreetMap": osm,
+            "Cadastre": cadastre
+        };
+        L.control.scale({imperial: false}).addTo(map);
+        L.control.layers(baseMaps).addTo(map);
+        L.control.locate().addTo(map);    </script></body>
+</html>
