@@ -6,11 +6,13 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
     <link rel="stylesheet" href="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/css/font-awesome.min.css' rel='stylesheet' />
-
     <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
     <script src="http://makinacorpus.github.io/Leaflet.FileLayer/leaflet.filelayer.js"></script>
     <script src="http://makinacorpus.github.io/Leaflet.FileLayer/togeojson/togeojson.js"></script>
     <script src="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+    <script src="src/js/l.control.geosearch.js"></script>
+		<script src="src/js/l.geosearch.provider.openstreetmap.js"></script>
+		<link rel="stylesheet" href="./src/css/l.geosearch.css" />
     <style>
         #map {
             position: absolute;
@@ -26,14 +28,15 @@
 
     <script type="text/javascript">
 
-        var cadastre = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/tout/{z}/{x}/{y}.png', {
+        var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }),
+            cadastre = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/tout/{z}/{x}/{y}.png', {
               maxZoom: 22,
               attribution: 'cadastre.gouv.fr',
             });
-            osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	            maxZoom: 19,
-	            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }),
+
             sat = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
               maxZoom: 18,
 	             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
@@ -42,13 +45,29 @@
         var map = L.map('map', {
             center: [45.19089,5.70355],
             zoom: 18,
-            layers: [sat,osm,cadastre]
+            layers: [sat,cadastre,osm]
         });
+
+    //     var options = {
+    //       collapsed: true, /* Whether its collapsed or not */
+    //       position: 'topright', /* The position of the control */
+    //       text: 'Locate', /* The text of the submit button */
+    //       placeholder: 'Search...', /* The placeholder text in the search field */
+    //       errorMessage: 'Nothing found.', /* Text to display when no matches are found. */
+    //       callback: function (results) {
+    //         var bbox = results.resourceSets[0].resources[0].bbox,
+    //         first = new L.LatLng(bbox[0], bbox[1]),
+    //         second = new L.LatLng(bbox[2], bbox[3]),
+    //         bounds = new L.LatLngBounds([first, second]);
+    //     this._map.fitBounds(bounds);
+    //   }
+    // };
+    //     new L.Control.Geocoder.nominatim().addTo(map);
 
         var baseMaps = {
             "Satellite": sat,
-            "OpenStreetMap": osm,
-            "Cadastre": cadastre
+            "Cadastre": cadastre,
+            "OpenStreetMap": osm
         };
 
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
@@ -60,6 +79,12 @@
                               return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description']);
                            }},
         }).addTo(map);
+        new L.Control.GeoSearch({
+          provider: new L.GeoSearch.Provider.OpenStreetMap(),
+            position: 'topleft',
+            showMarker: false,
+            retainZoomLevel: false,
+            }).addTo(map);
         L.control.locate({
           position: 'topleft',
           strings: {
