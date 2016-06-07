@@ -36,11 +36,14 @@
               maxZoom: 22,
               attribution: 'cadastre.gouv.fr',
             });
-
             sat = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
               maxZoom: 18,
 	             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
             });
+        var cadastre_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/transp/{z}/{x}/{y}.png', {
+          maxZoom: 22,
+          attribution: 'cadastre.gouv.fr',
+        });
 
         var map = L.map('map', {
             center: [45.19089,5.70355],
@@ -70,6 +73,9 @@
             "OpenStreetMap": osm
         };
 
+        var overlays = {"Cadastre transparent": cadastre_transp};
+
+
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
         L.Control.FileLayerLoad.LABEL = '⌘';
         L.Control.fileLayerLoad({
@@ -92,7 +98,7 @@
             }
           }).addTo(map);
         L.control.scale({imperial: false}).addTo(map);
-	      L.control.layers(baseMaps).addTo(map);
+	      L.control.layers(baseMaps,overlays).addTo(map);
 
     </script>
 </body>
