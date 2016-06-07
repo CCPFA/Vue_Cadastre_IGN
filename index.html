@@ -40,6 +40,11 @@
               maxZoom: 18,
 	             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
             });
+
+            var Topo = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+             });
+
         var cadastre_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/transp/{z}/{x}/{y}.png', {
           maxZoom: 22,
           attribution: 'cadastre.gouv.fr',
@@ -48,7 +53,7 @@
         var map = L.map('map', {
             center: [45.19089,5.70355],
             zoom: 18,
-            layers: [sat,cadastre,osm]
+            layers: [sat,Topo,osm,cadastre]
         });
 
     //     var options = {
@@ -69,8 +74,9 @@
 
         var baseMaps = {
             "Satellite": sat,
-            "Cadastre": cadastre,
-            "OpenStreetMap": osm
+            "Topo.": Topo,
+            "OpenStreetMap": osm,
+            "Cadastre": cadastre
         };
 
         var overlays = {"Cadastre transparent": cadastre_transp};
@@ -88,7 +94,7 @@
         new L.Control.GeoSearch({
           provider: new L.GeoSearch.Provider.OpenStreetMap(),
             position: 'topleft',
-            showMarker: false,
+            showMarker: true,
             retainZoomLevel: false,
             }).addTo(map);
         L.control.locate({
