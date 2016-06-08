@@ -57,22 +57,6 @@
             layers: [sat,Topo,osm,cadastre]
         });
 
-    //     var options = {
-    //       collapsed: true, /* Whether its collapsed or not */
-    //       position: 'topright', /* The position of the control */
-    //       text: 'Locate', /* The text of the submit button */
-    //       placeholder: 'Search...', /* The placeholder text in the search field */
-    //       errorMessage: 'Nothing found.', /* Text to display when no matches are found. */
-    //       callback: function (results) {
-    //         var bbox = results.resourceSets[0].resources[0].bbox,
-    //         first = new L.LatLng(bbox[0], bbox[1]),
-    //         second = new L.LatLng(bbox[2], bbox[3]),
-    //         bounds = new L.LatLngBounds([first, second]);
-    //     this._map.fitBounds(bounds);
-    //   }
-    // };
-    //     new L.Control.Geocoder.nominatim().addTo(map);
-
         var baseMaps = {
             "Satellite": sat,
             "Topo.": Topo,
@@ -86,12 +70,12 @@
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
         L.Control.FileLayerLoad.LABEL = '⌘';
         L.Control.fileLayerLoad({
-        	fileSizeLimit: 4096,
-            	fitBounds: true,
-            	layerOptions: {style: style,
+            fileSizeLimit: 4096,
+            fitBounds: true,
+            layerOptions: {style: style,
                            pointToLayer: function (data, latlng) {
-                              return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description']);
-                 }},
+                              return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description'],{maxHeight: 400, maxwidth: 300});
+                           }},
         }).addTo(map);
         new L.Control.GeoSearch({
           provider: new L.GeoSearch.Provider.OpenStreetMap(),
