@@ -86,11 +86,12 @@
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
         L.Control.FileLayerLoad.LABEL = '⌘';
         L.Control.fileLayerLoad({
-            fitBounds: true,
-            layerOptions: {style: style,
+        	fileSizeLimit: 4096,
+            	fitBounds: true,
+            	layerOptions: {style: style,
                            pointToLayer: function (data, latlng) {
                               return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description']);
-                           }},
+                 }},
         }).addTo(map);
         new L.Control.GeoSearch({
           provider: new L.GeoSearch.Provider.OpenStreetMap(),
