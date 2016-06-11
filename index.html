@@ -66,7 +66,7 @@
             fitBounds: true,
             layerOptions: {style: style,
                            pointToLayer: function (data, latlng) {
-                              return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description'],{maxWidth: 50, maxHeight: 350});
+                              return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description'],{maxWidth: 150, maxHeight: 350});
                            }},
         }).addTo(map);
         new L.Control.GeoSearch({
