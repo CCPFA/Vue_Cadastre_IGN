@@ -27,62 +27,52 @@
     <div id="map"></div>
 
     <script type="text/javascript">
-
         var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               maxZoom: 19,
               attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }),
             cadastre = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/tout/{z}/{x}/{y}.png', {
               maxZoom: 22,
-              attribution: 'cadastre.gouv.fr',
+              attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
             });
-
             sat = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
               maxZoom: 18,
-	             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+	             attribution: '&copy; Esri'
             });
-
+            var Topo = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+              maxZoom: 18,
+                attribution: '&copy; Esri'
+             });
+        var cadastre_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/transp/{z}/{x}/{y}.png', {
+          maxZoom: 22,
+          attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
+        });
         var map = L.map('map', {
             center: [45.19089,5.70355],
             zoom: 18,
-            layers: [sat,cadastre,osm]
+            layers: [cadastre]
         });
-
-    //     var options = {
-    //       collapsed: true, /* Whether its collapsed or not */
-    //       position: 'topright', /* The position of the control */
-    //       text: 'Locate', /* The text of the submit button */
-    //       placeholder: 'Search...', /* The placeholder text in the search field */
-    //       errorMessage: 'Nothing found.', /* Text to display when no matches are found. */
-    //       callback: function (results) {
-    //         var bbox = results.resourceSets[0].resources[0].bbox,
-    //         first = new L.LatLng(bbox[0], bbox[1]),
-    //         second = new L.LatLng(bbox[2], bbox[3]),
-    //         bounds = new L.LatLngBounds([first, second]);
-    //     this._map.fitBounds(bounds);
-    //   }
-    // };
-    //     new L.Control.Geocoder.nominatim().addTo(map);
-
         var baseMaps = {
             "Satellite": sat,
-            "Cadastre": cadastre,
-            "OpenStreetMap": osm
+            "Topo.": Topo,
+            "OpenStreetMap": osm,
+            "Cadastre": cadastre
         };
-
+        var overlays = {"Cadastre transparent": cadastre_transp};
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
-        L.Control.FileLayerLoad.LABEL = '⌘';
+        L.Control.FileLayerLoad.LABEL = '#';//'⌘';
         L.Control.fileLayerLoad({
+            fileSizeLimit: 4096,
             fitBounds: true,
             layerOptions: {style: style,
                            pointToLayer: function (data, latlng) {
-                              return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description']);
+                              return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description'],{maxHeight: 350});
                            }},
         }).addTo(map);
         new L.Control.GeoSearch({
           provider: new L.GeoSearch.Provider.OpenStreetMap(),
             position: 'topleft',
-            showMarker: false,
+            showMarker: true,
             retainZoomLevel: false,
             }).addTo(map);
         L.control.locate({
@@ -92,8 +82,7 @@
             }
           }).addTo(map);
         L.control.scale({imperial: false}).addTo(map);
-	      L.control.layers(baseMaps).addTo(map);
-
+	      L.control.layers(baseMaps,overlays).addTo(map);
     </script>
 </body>
 </html>
