@@ -75,11 +75,12 @@
             showMarker: true,
             retainZoomLevel: false,
             }).addTo(map);
-        L.control.locate({
+        L.control.locate({drawCircle: false,
           position: 'topleft',
           strings: {
             title: "Se localiser"
             }
+          }).addTo(map);
           }).addTo(map);
         L.control.scale({imperial: false}).addTo(map);
 	      L.control.layers(baseMaps,overlays).addTo(map);
