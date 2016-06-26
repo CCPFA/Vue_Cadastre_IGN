@@ -27,6 +27,7 @@
     <div id="map"></div>
 
     <script type="text/javascript">
+    <script type="text/javascript">
         var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               maxZoom: 19,
               attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -35,9 +36,16 @@
               maxZoom: 22,
               attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
             });
+
+            cadastresep = L.tileLayer('http://tms.cadastre.openstreetmap.fr/**/tout/{z}/{x}/{y}.png', {
+              maxZoom: 22,
+              zIndex: 5,
+              //attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
+            });
+
             sat = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
               maxZoom: 18,
-	             attribution: '&copy; Esri'
+               attribution: '&copy; Esri'
             });
             var Topo = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
               maxZoom: 18,
@@ -46,6 +54,12 @@
         var cadastre_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/transp/{z}/{x}/{y}.png', {
           maxZoom: 22,
           attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
+        });
+
+        var cadastresep_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/**/transp/{z}/{x}/{y}.png', {
+          maxZoom: 22,
+          zIndex: 6,
+          //attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
         });
         var map = L.map('map', {
             center: [45.19089,5.70355],
@@ -59,6 +73,46 @@
             "Cadastre": cadastre
         };
         var overlays = {"Cadastre transparent": cadastre_transp};
+
+
+        cadastresep.setOpacity(1);
+			  map.addLayer(cadastresep)
+			  //listen for cadastre
+			  map.on('baselayerchange', function(eo)
+			  {
+				if( eo.name == 'Cadastre' ) {
+					cadastresep.setOpacity(1);
+          //cadastresep.bringtoFront();
+          //adastresep.redraw()
+				}
+				else {
+					cadastresep.setOpacity(0);
+          //cadastresep.bringtoBack();
+				}
+			  })
+
+        cadastresep_transp.setOpacity(0);
+        map.addLayer(cadastresep_transp)
+        //listen for cadastre
+        map.on('overlayadd', function(eo)
+        {
+        if( eo.name == 'Cadastre transparent' ) {
+        cadastresep_transp.setOpacity(1);
+        }
+        else {
+        cadastresep_transp.setOpacity(0);
+        }
+      })
+
+      map.on('overlayremove', function(eo)
+      {
+      if( eo.name == 'Cadastre transparent' ) {
+        cadastresep_transp.setOpacity(0);
+      }
+      })
+
+
+
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
         L.Control.FileLayerLoad.LABEL = '#';//'⌘';
         L.Control.fileLayerLoad({
