@@ -43,22 +43,22 @@
               zIndex: 5,
               //attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
             });
-            sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            sat = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
              maxZoom: 18,
              detectRetina: false,
 	            attribution: '&copy; Esri'
             });
-            var Topo = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+            var Topo = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
              maxZoom: 18,
              detectRetina: false,
                attribution: '&copy; Esri'
             });
-        var cadastre_transp = L.tileLayer('https://tms.cadastre.openstreetmap.fr/*/transp/{z}/{x}/{y}.png', {
+        var cadastre_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/transp/{z}/{x}/{y}.png', {
           maxZoom: 22,
          detectRetina: true,
          attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
         });
-        var cadastresep_transp = L.tileLayer('https://tms.cadastre.openstreetmap.fr/**/transp/{z}/{x}/{y}.png', {
+        var cadastresep_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/**/transp/{z}/{x}/{y}.png', {
          maxZoom: 22,
          detectRetina: true,
          zIndex: 6,
@@ -118,12 +118,6 @@
            sat.setOpacity(1);
          }
         })
-        new L.Control.GeoSearch({
-         provider: new L.GeoSearch.Provider.OpenStreetMap(),
-           position: 'topleft',
-           showMarker: true,
-           retainZoomLevel: false,
-           }).addTo(map);
         L.control.locate({drawCircle: true,
          position: 'topleft',
          strings: {
@@ -132,6 +126,13 @@
          }).addTo(map);
         L.control.scale({imperial: false}).addTo(map);
 	L.control.layers(baseMaps,overlays).addTo(map);
+	
+        new L.Control.GeoSearch({
+         provider: new L.GeoSearch.Provider.OpenStreetMap(),
+           position: 'topleft',
+           showMarker: true,
+           retainZoomLevel: false,
+           }).addTo(map);
     </script>
 </body>
 </html>
