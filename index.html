@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, fullscreen=true, maximum-scale=1.0, user-scalable=no" />
     <title>Vue Cadastre</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
     <link rel="stylesheet" href="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
@@ -120,19 +120,20 @@
         })
         L.control.scale({imperial: false}).addTo(map);
 	L.control.layers(baseMaps,overlays).addTo(map);
+  L.control.locate({drawCircle: true,
+    position: 'topleft',
+    strings: {
+      title: "Se localiser"
+      }
+    }).addTo(map);
         new L.Control.GeoSearch({
           provider: new L.GeoSearch.Provider.OpenStreetMap(),
             position: 'topleft',
             showMarker: true,
             retainZoomLevel: false,
             }).addTo(map);
-        L.control.locate({drawCircle: true,
-          position: 'topleft',
-          strings: {
-            title: "Se localiser"
-            }
-          }).addTo(map);
-        
+
+
     </script>
 </body>
 </html>
