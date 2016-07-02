@@ -118,6 +118,8 @@
             sat.setOpacity(1);
           }
         })
+        L.control.scale({imperial: false}).addTo(map);
+	L.control.layers(baseMaps,overlays).addTo(map);
         new L.Control.GeoSearch({
           provider: new L.GeoSearch.Provider.OpenStreetMap(),
             position: 'topleft',
@@ -130,8 +132,7 @@
             title: "Se localiser"
             }
           }).addTo(map);
-        L.control.scale({imperial: false}).addTo(map);
-	      L.control.layers(baseMaps,overlays).addTo(map);
+        
     </script>
 </body>
 </html>
