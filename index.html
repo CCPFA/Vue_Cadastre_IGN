@@ -4,15 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Vue Cadastre</title>
     <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
-    <link rel="stylesheet" href="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/css/font-awesome.min.css' rel='stylesheet' />
+    <!--<link rel="stylesheet" href="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/css/font-awesome.min.css' rel='stylesheet' />-->
     <script src="https://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
-    <script src="https://makinacorpus.github.io/Leaflet.FileLayer/leaflet.filelayer.js"></script>
+    <!--<script src="https://makinacorpus.github.io/Leaflet.FileLayer/leaflet.filelayer.js"></script>
     <script src="https://makinacorpus.github.io/Leaflet.FileLayer/togeojson/togeojson.js"></script>
     <script src="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
     <script src="https://ccpfa.github.io/VueCadastre/src/js/l.control.geosearch.js"></script>
     <script src="https://ccpfa.github.io/VueCadastre/src/js/l.geosearch.provider.openstreetmap.js"></script>
-    <link rel="stylesheet" href="https://ccpfa.github.io/VueCadastre/src/css/l.geosearch.css" />
+    <link rel="stylesheet" href="https://ccpfa.github.io/VueCadastre/src/css/l.geosearch.css" />-->
     <style>
         #map {
             position: absolute;
@@ -30,7 +30,7 @@
         var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               maxZoom: 18,
               detectRetina: false,
-              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             });
             //cadastre = L.tileLayer('https://tms.cadastre.openstreetmap.fr/*/tout/{z}/{x}/{y}.png', {
             //  maxZoom: 22,
@@ -73,23 +73,23 @@
             zoom: 18,
             layers: [osm]
         });
-        var baseMaps = {
+        //var baseMaps = {
             //"Satellite": sat,
             //"Topo.": Topo,
-            "OpenStreetMap": osm,
+        //    "OpenStreetMap": osm,
             //"Cadastre": cadastre
-        };
+        //};
         //var overlays = {"Cadastre transparent": cadastre_transp};
-        var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
-        L.Control.FileLayerLoad.LABEL = '#';//'⌘';
-        L.Control.fileLayerLoad({
-            fileSizeLimit: 4096,
-            fitBounds: true,
-            layerOptions: {style: style,
-                           pointToLayer: function (data, latlng) {
-                              return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description'],{maxWidth: 200, maxHeight: 350});
-                           }},
-        }).addTo(map);
+        //var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
+        //L.Control.FileLayerLoad.LABEL = '#';//'⌘';
+        //L.Control.fileLayerLoad({
+        //    fileSizeLimit: 4096,
+        //    fitBounds: true,
+        //    layerOptions: {style: style,
+        //                   pointToLayer: function (data, latlng) {
+        //                      return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description'],{maxWidth: 200, maxHeight: 350});
+        //                   }},
+        //}).addTo(map);
 
 
         //cadastresep.setOpacity(1);
@@ -127,19 +127,19 @@
         //  }
         //})
 
-        new L.Control.GeoSearch({
-          provider: new L.GeoSearch.Provider.OpenStreetMap(),
-            position: 'topleft',
-            showMarker: true,
-            retainZoomLevel: false,
-            }).addTo(map);
-        L.control.locate({drawCircle: true,
-          position: 'topleft',
-          strings: {
-            title: "Se localiser"
-            }
-          }).addTo(map);
-        L.control.scale({imperial: false}).addTo(map);
+        //new L.Control.GeoSearch({
+        //  provider: new L.GeoSearch.Provider.OpenStreetMap(),
+        //    position: 'topleft',
+        //    showMarker: true,
+        //    retainZoomLevel: false,
+        //    }).addTo(map);
+        //L.control.locate({drawCircle: true,
+        //  position: 'topleft',
+        //  strings: {
+        //    title: "Se localiser"
+        //    }
+        //  }).addTo(map);
+        //L.control.scale({imperial: false}).addTo(map);
 	//L.control.layers(baseMaps,overlays).addTo(map);
     </script>
 </body>
