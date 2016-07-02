@@ -27,30 +27,30 @@
     <div id="map"></div>
 
     <script type="text/javascript">
-        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               maxZoom: 18,
               detectRetina: false,
               attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }),
-            cadastre = L.tileLayer('https://tms.cadastre.openstreetmap.fr/*/tout/{z}/{x}/{y}.png', {
+            cadastre = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/tout/{z}/{x}/{y}.png', {
               maxZoom: 22,
               detectRetina: true,
-              attribution: '<a href="https://cadastre.gouv.fr">cadastre.gouv.fr</a>',
+              attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
             });
 
-            cadastresep = L.tileLayer('https://tms.cadastre.openstreetmap.fr/**/tout/{z}/{x}/{y}.png', {
+            cadastresep = L.tileLayer('http://tms.cadastre.openstreetmap.fr/**/tout/{z}/{x}/{y}.png', {
               maxZoom: 22,
               detectRetina: true,
               zIndex: 5,
               //attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
             });
 
-            sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            sat = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
               maxZoom: 18,
               detectRetina: false,
 	             attribution: '&copy; Esri'
             });
-            var Topo = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+            var Topo = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
               maxZoom: 18,
               detectRetina: false,
                 attribution: '&copy; Esri'
@@ -61,7 +61,7 @@
           attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
         });
 
-        var cadastresep_transp = L.tileLayer('https://tms.cadastre.openstreetmap.fr/**/transp/{z}/{x}/{y}.png', {
+        var cadastresep_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/**/transp/{z}/{x}/{y}.png', {
           maxZoom: 22,
           detectRetina: true,
           zIndex: 6,
