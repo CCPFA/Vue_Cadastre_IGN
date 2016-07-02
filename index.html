@@ -120,19 +120,19 @@
         })
         L.control.scale({imperial: false}).addTo(map);
 	L.control.layers(baseMaps,overlays).addTo(map);
-  L.control.locate({drawCircle: true,
-    position: 'topleft',
-    strings: {
-      title: "Se localiser"
-      }
-    }).addTo(map);
+  
         new L.Control.GeoSearch({
           provider: new L.GeoSearch.Provider.OpenStreetMap(),
             position: 'topleft',
             showMarker: true,
             retainZoomLevel: false,
             }).addTo(map);
-
+	L.control.locate({drawCircle: true,
+    		position: 'topleft',
+    		strings: {
+      		title: "Se localiser"
+      		}
+    	}).addTo(map);
 
     </script>
 </body>
