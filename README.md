@@ -1,7 +1,7 @@
-# [VueCadastre](http://manuamador.github.io/VueCadastre)
+# [VueCadastre](http://ccpfa.github.io/VueCadastre)
 Une simple page en Leaflet pour afficher le cadastre français à partir du service openstreetmaps.
 
-[Essayer](http://manuamador.github.io/VueCadastre)
+[Essayer](http://ccpfa.github.io/VueCadastre)
 
 
 utilise:
