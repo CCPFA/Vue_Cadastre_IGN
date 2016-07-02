@@ -77,15 +77,15 @@
         };
         var overlays = {"Cadastre transparent": cadastre_transp};
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
-        L.Control.FileLayerLoad.LABEL = '#';//'⌘';
-        L.Control.fileLayerLoad({
-           fileSizeLimit: 4096,
-           fitBounds: true,
-           layerOptions: {style: style,
-                          pointToLayer: function (data, latlng) {
-                             return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description'],{maxWidth: 200, maxHeight: 350});
-                          }},
-        }).addTo(map);
+        //L.Control.FileLayerLoad.LABEL = '#';//'⌘';
+        //L.Control.fileLayerLoad({
+        //   fileSizeLimit: 4096,
+        //   fitBounds: true,
+        //   layerOptions: {style: style,
+        //                  pointToLayer: function (data, latlng) {
+        //                     return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description'],{maxWidth: 200, maxHeight: 350});
+        //                  }},
+        //}).addTo(map);
         cadastresep.setOpacity(1);
         map.addLayer(cadastresep)
         //listen for cadastre
@@ -127,12 +127,12 @@
         L.control.scale({imperial: false}).addTo(map);
 	L.control.layers(baseMaps,overlays).addTo(map);
 	
-        //new L.Control.GeoSearch({
-        // provider: new L.GeoSearch.Provider.OpenStreetMap(),
-        //   position: 'topleft',
-        //   showMarker: true,
-        //   retainZoomLevel: false,
-        //   }).addTo(map);
+        new L.Control.GeoSearch({
+         provider: new L.GeoSearch.Provider.OpenStreetMap(),
+           position: 'topleft',
+           showMarker: true,
+           retainZoomLevel: false,
+           }).addTo(map);
     </script>
 </body>
 </html>
