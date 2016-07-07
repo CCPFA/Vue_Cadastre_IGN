@@ -5,6 +5,10 @@
     <title>Vue Cadastre</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
     <link rel="stylesheet" href="./src/css/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
+      <!-- <link href='./src/font-awesome-4.6.3/css/font-awesome.css' rel='stylesheet' /> -->
+      <script src="https://use.fontawesome.com/9193c58103.js"></script>
+      <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' rel='stylesheet' />
+      <link href='https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css' rel='stylesheet' />
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/css/font-awesome.min.css' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
     <script src="https://makinacorpus.github.io/Leaflet.FileLayer/leaflet.filelayer.js"></script>
@@ -13,6 +17,7 @@
     <script src="./src/js/l.control.geosearch.js"></script>
     <script src="./src/js/l.geosearch.provider.openstreetmap.js"></script>
     <link rel="stylesheet" href="./src/css/l.geosearch.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
     <style>
         #map {
             position: absolute;
@@ -31,7 +36,6 @@
 	             maxZoom: 20,
 	              attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               });
-
             cadastre = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/tout/{z}/{x}/{y}.png', {
               maxZoom: 22,
               detectRetina: true,
@@ -52,13 +56,13 @@
 		maxZoom: 20,
 		attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             });
-        
+
         //var Topo = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
         //     maxZoom: 18,
         //     detectRetina: false,
         //       attribution: '&copy; Esri'
         //    });
-        
+
         var cadastre_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/transp/{z}/{x}/{y}.png', {
           maxZoom: 22,
          detectRetina: true,
@@ -70,14 +74,14 @@
          zIndex: 6,
           //attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
         });
-        
+
         var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {
          maxZoom: 22,
          detectRetina: false,
          zIndex: 8,
           attribution: '&copy; IGN, BD Carthage',
         });
-        
+
         var map = L.map('map', {
             center: [45.19089,5.70355],
             zoom: 18,
@@ -94,15 +98,59 @@
           "Rivières": carthage
         };
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
-        L.Control.FileLayerLoad.LABEL = '⌘';
+        var geojsonMarkerOptions = {
+          radius: 8,
+          fillColor: "#ff7800",
+          color: "#000",
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.8
+          };
+
+        var PIcon = L.AwesomeMarkers.icon({icon: 'check', markerColor: 'green', prefix: 'fa', iconColor: 'white'});
+        var CIcon = L.AwesomeMarkers.icon({icon: 'gift', markerColor: 'darkblue', prefix: 'fa', iconColor: 'white'});
+        var MIcon = L.AwesomeMarkers.icon({icon: 'exchange', markerColor: 'purple', prefix: 'fa', iconColor: 'white'});
+        var DIcon = L.AwesomeMarkers.icon({icon: 'user', markerColor: 'blue', prefix: 'fa', iconColor: 'white'});
+        var ZIcon = L.AwesomeMarkers.icon({icon: 'warning', markerColor: 'red', prefix: 'fa', iconColor: 'white'});
+        var EIcon = L.AwesomeMarkers.icon({icon: 'exclamation-circle', markerColor: 'orange', prefix: 'fa', iconColor: 'white'});
+
+
+        var style = {maxHeight: 200, color:'gray', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
+
+        L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';// '⌘';
         L.Control.fileLayerLoad({
+            layer: L.geoJson,
             fileSizeLimit: 4096,
             fitBounds: true,
-            layerOptions: {style: style,
-                           pointToLayer: function (data, latlng) {
-                              return L.marker(latlng, {style: style}).bindPopup(data['properties']['Description'],{maxWidth: 200, maxHeight: 350});
-                           }},
-        }).addTo(map);
+            layerOptions: {
+              pointToLayer: function(feature, latlng) {
+                if (feature.properties.PCM == "P"){
+                       return L.marker(latlng, {icon: PIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                   }
+                else if (feature.properties.PCM == "C"){
+                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                   }
+                else if (feature.properties.PCM == "M"){
+                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                  }
+                else if (feature.properties.PCM == "M"){
+                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                  }
+                else if (feature.properties.PCM == "2"){
+                  return L.marker(latlng, {icon: DIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                  }
+                else if (feature.properties.PCM == "Z"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                  }
+                 else if (feature.properties.PCM == "E"){
+                   return L.marker(latlng, {icon: EIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                  }
+                }
+
+              }
+            }
+           ).addTo(map);
+
         cadastresep.setOpacity(1);
         map.addLayer(cadastresep)
         //listen for cadastre
@@ -140,21 +188,20 @@
           }
         })
         L.control.scale({imperial: false}).addTo(map);
-	L.control.layers(baseMaps,overlays).addTo(map);
-  
+	      L.control.layers(baseMaps,overlays).addTo(map);
+
         new L.Control.GeoSearch({
           provider: new L.GeoSearch.Provider.OpenStreetMap(),
             position: 'topleft',
             showMarker: true,
             retainZoomLevel: false,
             }).addTo(map);
-	L.control.locate({drawCircle: true,
-    		position: 'topleft',
-    		strings: {
-      		title: "Se localiser"
-      		}
-    	}).addTo(map);
-
+	      L.control.locate({drawCircle: true,
+      		position: 'topleft',
+      		strings: {
+        		title: "Se localiser"
+        		}
+    	     }).addTo(map);
     </script>
 </body>
 </html>
