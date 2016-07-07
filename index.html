@@ -124,25 +124,25 @@
             layerOptions: {
               pointToLayer: function(feature, latlng) {
                 if (feature.properties.PCM == "P"){
-                       return L.marker(latlng, {icon: PIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                       return L.marker(latlng, {icon: PIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
                    }
                 else if (feature.properties.PCM == "C"){
-                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
                    }
                 else if (feature.properties.PCM == "M"){
-                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
                   }
                 else if (feature.properties.PCM == "M"){
-                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
                   }
                 else if (feature.properties.PCM == "2"){
-                  return L.marker(latlng, {icon: DIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                  return L.marker(latlng, {icon: DIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
                   }
                 else if (feature.properties.PCM == "Z"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
                   }
                  else if (feature.properties.PCM == "E"){
-                   return L.marker(latlng, {icon: EIcon}).bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400})
+                   return L.marker(latlng, {icon: EIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
                   }
                 }
 
