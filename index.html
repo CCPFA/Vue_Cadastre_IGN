@@ -31,67 +31,52 @@
     <div id="map"></div>
 
     <script type="text/javascript">
-        var osm = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-	             maxZoom: 20,
-	              attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              });
-            cadastre = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/tout/{z}/{x}/{y}.png', {
-              maxZoom: 22,
-              detectRetina: true,
-              attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
-            });
-            cadastresep = L.tileLayer('http://tms.cadastre.openstreetmap.fr/**/tout/{z}/{x}/{y}.png', {
-              maxZoom: 22,
-              detectRetina: true,
-              zIndex: 5,
-              //attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
-            });
-            sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-             maxZoom: 18,
-             detectRetina: false,
-	            attribution: '&copy; Esri'
-            });
-	var Topo =  L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {
-		maxZoom: 20,
-		attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            });
-        //var Topo = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-        //     maxZoom: 18,
-        //     detectRetina: false,
-        //       attribution: '&copy; Esri'
-        //    });
-        var cadastre_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/*/transp/{z}/{x}/{y}.png', {
-          maxZoom: 22,
-         detectRetina: true,
-         attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
-        });
-        var cadastresep_transp = L.tileLayer('http://tms.cadastre.openstreetmap.fr/**/transp/{z}/{x}/{y}.png', {
-         maxZoom: 22,
-         detectRetina: true,
-         zIndex: 6,
-          //attribution: '<a href="http://cadastre.gouv.fr">cadastre.gouv.fr</a>',
-        });
+
+
+    var CLE_IGN = "eoc08orthz5eeofr5419wbaa";//mmspckk4f42vizs561m8mub1
+
+    //var url_ign_scan = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
+    //var url_ign_parcelaire ="https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=CADASTRALPARCELS.PARCELS&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
+    //var url_ign_ortho = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
+
+    var url_ign_scan = "http://wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
+    var url_ign_parcelaire ="http://wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=CADASTRALPARCELS.PARCELS&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
+    var url_ign_ortho = "http://wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
+
+
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'})
+    var ign_scan = L.tileLayer(url_ign_scan, {attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'})
+    var ign_ortho = L.tileLayer(url_ign_ortho, {attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'})
+    var ign_parcelaire = L.tileLayer(url_ign_parcelaire, {attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'})
+    var map = L.map('map', {
+        center: [45.19089,5.70355],
+        zoom: 18,
+        layers: [osm]
+    });
+    osm.addTo(map)
+
+    var baseMaps = {
+    "OSM": osm,
+    "Scan IGN": ign_scan,
+    "Ortho IGN":ign_ortho,
+    "Parcelaire IGN":ign_parcelaire
+    };
+
+
+
         var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {
          maxZoom: 22,
          detectRetina: false,
          zIndex: 8,
           attribution: '&copy; IGN, BD Carthage',
         });
-        var map = L.map('map', {
-            center: [45.19089,5.70355],
-            zoom: 18,
-            layers: [cadastre]
-        });
-        var baseMaps = {
-            "Satellite": sat,
-            "Topo.": Topo,
-            "OpenStreetMap": osm,
-            "Cadastre": cadastre
-        };
+
+
         var overlays = {
-          "Cadastre transparent": cadastre_transp,
           "Rivières": carthage
         };
+
+        L.control.layers(baseMaps,overlays).addTo(map);
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
         var geojsonMarkerOptions = {
           radius: 8,
@@ -140,44 +125,44 @@
               }
             }
            ).addTo(map);
-        cadastresep.setOpacity(1);
-        map.addLayer(cadastresep)
-        //listen for cadastre
-        map.on('baselayerchange', function(eo)
-           {
-            if( eo.name == 'Cadastre' ) {
-            cadastresep.setOpacity(1);
-            }
-            else {
-          cadastresep.setOpacity(0);
-          }
-          })
-        cadastresep_transp.setOpacity(0);
-        map.addLayer(cadastresep_transp)
-         //listen for cadastre_transp
-        map.on('overlayadd', function(eo)
-        {
-          if( eo.name == 'Cadastre transparent' ) {
-            cadastresep_transp.setOpacity(1),
-            sat.setOpacity(0.5);
-            osm.setOpacity(0.7);
-            Topo.setOpacity(0.7);
-          }
-          else {
-            cadastresep_transp.setOpacity(0);
-          }
-        })
-        map.on('overlayremove', function(eo)
-        {
-          if( eo.name == 'Cadastre transparent' ) {
-            cadastresep_transp.setOpacity(0),
-            sat.setOpacity(1);
-            osm.setOpacity(1);
-            Topo.setOpacity(1);
-          }
-        })
+        // cadastresep.setOpacity(1);
+        // map.addLayer(cadastresep)
+        // //listen for cadastre
+        // map.on('baselayerchange', function(eo)
+        //    {
+        //     if( eo.name == 'Cadastre' ) {
+        //     cadastresep.setOpacity(1);
+        //     }
+        //     else {
+        //   cadastresep.setOpacity(0);
+        //   }
+        //   })
+        // cadastresep_transp.setOpacity(0);
+        // map.addLayer(cadastresep_transp)
+        //  //listen for cadastre_transp
+        // map.on('overlayadd', function(eo)
+        // {
+        //   if( eo.name == 'Cadastre transparent' ) {
+        //     cadastresep_transp.setOpacity(1),
+        //     sat.setOpacity(0.5);
+        //     osm.setOpacity(0.7);
+        //     Topo.setOpacity(0.7);
+        //   }
+        //   else {
+        //     cadastresep_transp.setOpacity(0);
+        //   }
+        // })
+        // map.on('overlayremove', function(eo)
+        // {
+        //   if( eo.name == 'Cadastre transparent' ) {
+        //     cadastresep_transp.setOpacity(0),
+        //     sat.setOpacity(1);
+        //     osm.setOpacity(1);
+        //     Topo.setOpacity(1);
+        //   }
+        // })
         L.control.scale({imperial: false}).addTo(map);
-	      L.control.layers(baseMaps,overlays).addTo(map);
+	      // L.control.layers(baseMaps,overlays).addTo(map);
         new L.Control.GeoSearch({
           provider: new L.GeoSearch.Provider.OpenStreetMap(),
             position: 'topleft',
