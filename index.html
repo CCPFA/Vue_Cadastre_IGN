@@ -61,7 +61,7 @@
             zoom: 18,
             layers: [osm, ign_parcelaire]
         });
-
+        osm.setOpacity(0.7);
         L.control.layers(baseMaps,overlays).addTo(map);
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
         var geojsonMarkerOptions = {
