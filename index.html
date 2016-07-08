@@ -41,12 +41,7 @@
     var ign_ortho = L.tileLayer(url_ign_ortho, {maxZoom: 19, detectRetina: true, attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
     var ign_parcelaire = L.tileLayer(url_ign_parcelaire, {maxZoom: 20, detectRetina: true, attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
     var Topo =  L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {maxZoom: 20,attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'});
-
-    var map = L.map('map', {
-        center: [45.19089,5.70355],
-        zoom: 18,
-        layers: [osm]
-    });
+    var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {maxZoom: 22, detectRetina: false, zIndex: 8, attribution: '&copy; IGN, BD Carthage' });
 
 
     var baseMaps = {
@@ -55,16 +50,18 @@
     "Cartes IGN":ign_scan,
     "Topo" : Topo
     };
-        var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {
-         maxZoom: 22,
-         detectRetina: false,
-         zIndex: 8,
-          attribution: '&copy; IGN, BD Carthage',
-        });
+
         var overlays = {
           "Parcelaire IGN":ign_parcelaire,
           "Rivières": carthage
         };
+
+        var map = L.map('map', {
+            center: [45.19089,5.70355],
+            zoom: 18,
+            layers: [osm, ign_parcelaire]
+        });
+
         L.control.layers(baseMaps,overlays).addTo(map);
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
         var geojsonMarkerOptions = {
