@@ -62,7 +62,7 @@
             zoom: 18,
             layers: [osm, ign_parcelaire]
         });
-
+	var hash = new L.Hash(map);
         L.control.layers(baseMaps,overlays).addTo(map);
         osm.setOpacity(0.7);
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
@@ -147,7 +147,7 @@
         		title: "Se localiser"
         		}
     	     }).addTo(map);
-    	 var hash = new L.Hash(map);
+    	 
     </script>
 </body>
 </html>
