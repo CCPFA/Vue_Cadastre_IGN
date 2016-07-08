@@ -1,3 +1,19 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @manuamador
+ Unwatch 1
+  Star 0
+ Fork 0 CCPFA/Vue_Cadastre_IGN
+ Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
+Tree: 682e2faa31 Find file Copy pathVue_Cadastre_IGN/index.html
+682e2fa  a minute ago
+@manuamador manuamador Update index.html
+1 contributor
+RawBlameHistory     178 lines (163 sloc)  8.42 KB
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,15 +47,10 @@
     <div id="map"></div>
 
     <script type="text/javascript">
-
-
     var CLE_IGN = "waueelcut14w654dbkpq8coh";//mmspckk4f42vizs561m8mub1
-
     var url_ign_scan = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
     var url_ign_parcelaire ="https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=CADASTRALPARCELS.PARCELS&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=bdparcellaire_o&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
     var url_ign_ortho = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
-
-
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19, detectRetina: true, attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'})
     var ign_scan = L.tileLayer(url_ign_scan, {maxZoom: 18, detectRetina: true, attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'})
     var ign_ortho = L.tileLayer(url_ign_ortho, {maxZoom: 19, detectRetina: true, attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'})
@@ -50,29 +61,21 @@
         layers: [osm]
     });
     osm.addTo(map)
-
     var baseMaps = {
-
     "OSM": osm,
     "Ortho IGN":ign_ortho
     "Cartes IGN":ign_scan
     };
-
-
-
         var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {
          maxZoom: 22,
          detectRetina: false,
          zIndex: 8,
           attribution: '&copy; IGN, BD Carthage',
         });
-
-
         var overlays = {
           "Parcelaire IGN":ign_parcelaire,
           "Rivières": carthage
         };
-
         L.control.layers(baseMaps,overlays).addTo(map);
         var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
         var geojsonMarkerOptions = {
@@ -175,3 +178,5 @@
     </script>
 </body>
 </html>
+Status API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help
