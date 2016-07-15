@@ -98,10 +98,7 @@
 	          return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
 	           }
 	        else if (feature.properties.PCM == "M"){
-	          return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
-	          }
-	        else if (feature.properties.PCM == "M"){
-	          return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+	          return L.marker(latlng, {icon: MIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
 	          }
 	        else if (feature.properties.PCM == "2"){
 	          return L.marker(latlng, {icon: DIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
