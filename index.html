@@ -61,7 +61,6 @@
 	  "Rivières": carthage,
 	  "GeoFoncier": geofoncier_sommets
        };
-	};
 	
 	var map = L.map('map', {
 	    center: [45.19089,5.70355],
@@ -142,7 +141,29 @@
 	     //map.removeLayer(ign_lim)(map);
 	   }
 	})
-	
+	map.on('overlayadd', function(eo)
+        {
+          if( eo.name == 'GeoFoncier' ) {
+            geofoncier_limites.setOpacity(1),
+	     ign_scan.setOpacity(0.5);
+	     ign_ortho.setOpacity(0.5);
+	     osm.setOpacity(0.7);
+	     Topo.setOpacity(0.6)
+          }
+          else {
+            geofoncier_limites.setOpacity(0);
+          }
+        })
+        map.on('overlayremove', function(eo)
+        {
+          if( eo.name == 'GeoFoncier' ) {
+            geofoncier_limites.setOpacity(0),
+	     ign_scan.setOpacity(1);
+	     ign_ortho.setOpacity(1);
+	     osm.setOpacity(1);
+	     Topo.setOpacity(1);
+          }
+       })
 
 	
 	L.control.scale({imperial: false}).addTo(map);
