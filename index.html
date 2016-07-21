@@ -49,7 +49,7 @@
     var Topo =  L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {maxZoom: 19, attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'});
     var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {maxZoom: 19, detectRetina: false, zIndex: 8, attribution: '&copy; IGN, BD Carthage' });
     var geofoncier_sommets= L.tileLayer.wms("https://api.geofoncier.fr/referentielsoge/ogc/wxs?", {layers: 'RFU_FXX_SOMMETS', format: 'image/png', maxZoom: 20, detectRetina: false, zIndex: 9, transparent: true, attribution: "© GéoFoncier"});
-    var geofoncier_limites= L.tileLayer.wms("https://api.geofoncier.fr/referentielsoge/ogc/wxs?", {layers: 'RFU_FXX_LIMITES', format: 'image/png', maxZoom: 20, detectRetina: false, zIndex: 8, transparent: true, attribution: "© GéoFoncier"});
+    var geofoncier_limites= L.tileLayer.wms("https://api.geofoncier.fr/referentielsoge/ogc/wxs?", {layers: 'RFU_FXX_LIMITES', format: 'image/png', maxZoom: 20, detectRetina: false, zIndex: 8, transparent: true});
 
     var baseMaps = {
     "OSM": osm,
