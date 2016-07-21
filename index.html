@@ -135,18 +135,41 @@
                 onEachFeature: function (feature, layer) {
                   layer.on('mouseover', function highlightFeature(e) {
                     var layer = e.target;
-                    layer.setStyle({
+                    if (feature.geometry.type !="Point"){
+                      layer.setStyle({
                         weight: 4,
                         //color: '#666',
-                        dashArray: '',
-                        fillOpacity: 0.5
-                    });
-
+                        //dashArray: '',
+                        fillOpacity: 0.8
+                      });
+                      }    
                     }
                   );
                   layer.on('mouseout', function resetHighlight(e) {
-                      parcelles.resetStyle(e.target);
-                  });
+                    var layer = e.target;
+                    if (feature.properties.PCM == "P" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleP);
+                    }
+                    else if (feature.properties.PCM == "C" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleC);
+                    }
+                    else if (feature.properties.PCM == "M" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleM);
+                    }
+                    else if (feature.properties.PCM == "2" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleD);
+                    }
+                    else if (feature.properties.PCM == "2A" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleDA);
+                    }
+                    else if (feature.properties.PCM == "Z" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleZ);
+                    }
+                    else if (feature.properties.PCM == "E" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleE);
+                    }
+                  }
+                );
                   if (feature.properties) {
                       layer.bindPopup(feature['properties']['Description'],{maxHeight: 400, maxwidth: 400});
                   }
