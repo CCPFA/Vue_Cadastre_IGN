@@ -241,16 +241,16 @@
 	new L.Control.GeoSearch({
 	  provider: new L.GeoSearch.Provider.OpenStreetMap(),
 	    position: 'topleft',
-	    flyTo : true,
 	    showMarker: true,
 	    retainZoomLevel: false,
 	    }).addTo(map);
-	      L.control.locate({drawCircle: true,
-	      maxZoom: 18,
-	      	position: 'topleft',
-	      	strings: {
-			title: "Se localiser"
-			}
+         L.control.locate({drawCircle: true,
+            maxZoom: 18,
+	    flyTo : true,
+	    position: 'topleft',
+	    strings: {
+		title: "Se localiser"
+	    }
 	         }).addTo(map);
     	 
     </script>
