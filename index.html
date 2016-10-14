@@ -18,16 +18,50 @@
     <script src="./src/js/l.control.geosearch.js"></script>
     <script src="./src/js/l.geosearch.provider.openstreetmap.js"></script>
     <link rel="stylesheet" href="./src/css/l.geosearch.css" />
+    <link rel="stylesheet" href="./src/css/leaflet-search.css" />
+    <script src="./src/js/leaflet-search.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
     <!--<script src="https://mlevans.github.io/leaflet-hash/javascripts/leaflet-hash.js"></script>-->>
     <style>
-        #map {
-            position: absolute;
-            top:0;
-            left: 0;
-            right: 0;
-            bottom:0;
-        }
+    #map {
+        position: absolute;
+        top:0;
+        left: 0;
+        right: 0;
+        bottom:0;
+    }
+    .info {
+      text-align: left;
+      line-height: 18px;
+      color: #555;
+      float: left;
+      margin-right: 8px;
+    padding: 10px 30px;
+    font: 12px/14px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.7);
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 5px;
+  }
+  .info h4 {
+    margin: 0 0 5px;
+    color: #777;
+  }
+
+  .legend {
+    text-align: left;
+    line-height: 18px;
+    color: #555;
+  }
+  .legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 5px;
+  }
     </style>
 </head>
 <body>
@@ -45,7 +79,7 @@
     var ign_ortho = L.tileLayer(url_ign_ortho, {maxZoom: 18, detectRetina: false, attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
     var ign_parcelaire = L.tileLayer(url_ign_parcelaire, {maxZoom: 20, detectRetina: false, zIndex: 7 ,attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
     //var ign_lim = L.tileLayer(url_ign_lim, {maxZoom: 20, zIndex=8, detectRetina: false});
-    
+
     var Topo =  L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {maxZoom: 19, attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'});
     var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {maxZoom: 19, detectRetina: false, zIndex: 8, attribution: '&copy; IGN, BD Carthage' });
     var geofoncier_sommets= L.tileLayer.wms("https://api.geofoncier.fr/referentielsoge/ogc/wxs?", {layers: 'RFU_FXX_SOMMETS', format: 'image/png', maxZoom: 20, detectRetina: false, zIndex: 9, transparent: true, attribution: "© GéoFoncier"});
@@ -63,7 +97,7 @@
 	  "GeoFoncier": geofoncier_sommets,
 	  "Rivières": carthage
        };
-	
+
 	var map = L.map('map', {
 	    center: [46.5,2.34],
             zoom: 5,
@@ -76,8 +110,8 @@
 	ign_ortho.setOpacity(0.7);
 	geofoncier_limites.setOpacity(0);
         map.addLayer(geofoncier_limites)
-	
-	
+
+
 	var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
 	var geojsonMarkerOptions = {
           radius: 8,
@@ -105,7 +139,7 @@
         var styleE =  {color:'#f2952f', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
 
 	L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';// '⌘';
-	L.Control.fileLayerLoad({
+	var control = new L.Control.fileLayerLoad({
             layer: L.geoJson,
             fileSizeLimit: 256000,
             fitBounds: true,
@@ -144,7 +178,7 @@
                         //dashArray: '',
                         fillOpacity: 0.8
                       });
-                      }    
+                      }
                     }
                   );
                   layer.on('mouseout', function resetHighlight(e) {
@@ -191,8 +225,55 @@
               }
             }
            ).addTo(map);
-	
-	 
+
+           control.loader.on('data:loaded', function (e) {
+             // Remove old control, if any
+             if (window.searchControl)
+             {
+               map.removeControl(window.searchControl);
+             }
+
+             // Add search gadget for this layer
+             window.searchControl= new L.control.search({
+               layer: e.layer,
+               propertyName: 'rec',
+               initial: false,
+               textErr: 'Parcelle non trouvée',	//error message
+            		textCancel: 'Annuler',		    //title in cancel button
+            		textPlaceholder: 'Rechercher une parcelle...',
+               minLength: 0,					//minimal text length for autocomplete
+            		casesensitive: false,			//search elements in case sensitive text
+            		autoType: true,
+               firstTipSubmit: true,			//auto select first result con enter click
+     		      autoResize: true,
+               tooltipLimit: 5});
+
+             map.addControl(window.searchControl);
+
+             var legend = L.control({position: 'bottomright'});
+
+           	legend.onAdd = function (map) {
+
+           	var div = L.DomUtil.create('div', 'info legend'),
+           	couleurs = ['#639921', '#0067a3', '#d152b8', '#666','#f2952f','#d53e2a'],
+           	valeurs = ['Privé', 'Concédé', 'Mixte', 'Tiers','Écart Prop. ou Dom.','Absence de Sifon'],
+           	labels = ['<strong>Légende:</strong>']
+
+
+
+           	for (var i = 0; i < couleurs.length; i++) {
+                   col = couleurs [i];
+           				vf=valeurs [i];
+           		labels.push(
+           				'<i style="background:' + col + '"></i> ' + vf );
+           				}
+           				div.innerHTML = labels.join('<br>');
+           				return div;
+           				};
+           	legend.addTo(map);
+
+           });
+
 	 map.on('overlayadd', function(eo)
 	  {
 	   if( eo.name == 'Parcelaire IGN' ) {
@@ -237,9 +318,9 @@
           }
        })
 
-	
+
 	L.control.scale({imperial: false}).addTo(map);
-	
+
 	new L.Control.GeoSearch({
 	  provider: new L.GeoSearch.Provider.OpenStreetMap(),
 	    position: 'topleft',
@@ -254,7 +335,17 @@
 		title: "Se localiser"
 	    }
 	         }).addTo(map);
-    	 
+ map.addControl(L.control.search({layer: L.geoJson, propertyName: 'rec',
+ initial: false,
+ textErr: 'Parcelle non trouvée',	//error message
+ textCancel: 'Annuler',		    //title in cancel button
+ textPlaceholder: 'Rechercher une parcelle...',
+ minLength: 0,					//minimal text length for autocomplete
+ casesensitive: false,			//search elements in case sensitive text
+ autoType: true,
+ firstTipSubmit: true,			//auto select first result con enter click
+ autoResize: true,
+ tooltipLimit: 5}));
     </script>
 </body>
 </html>
