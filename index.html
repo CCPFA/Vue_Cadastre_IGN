@@ -32,11 +32,11 @@
     }
     .info {
       text-align: left;
-      line-height: 18px;
+      line-height: 14px;
       color: #555;
       float: left;
-      margin-right: 8px;
-    padding: 10px 30px;
+      margin-right: 4px;
+    padding: 5px 20px;
     font: 12px/14px Arial, Helvetica, sans-serif;
     background: white;
     background: rgba(255,255,255,0.7);
@@ -50,14 +50,14 @@
 
   .legend {
     text-align: left;
-    line-height: 18px;
+    line-height: 14px;
     color: #555;
   }
   .legend i {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     float: left;
-    margin-right: 8px;
+    margin-right: 4px;
     opacity: 0.7;
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
     border-radius: 5px;
@@ -250,29 +250,30 @@
 
              map.addControl(window.searchControl);
 
-             var legend = L.control({position: 'bottomright'});
 
-           	legend.onAdd = function (map) {
-
-           	var div = L.DomUtil.create('div', 'info legend'),
-           	couleurs = ['#639921', '#0067a3', '#d152b8', '#666','#f2952f','#d53e2a'],
-           	valeurs = ['Privé', 'Concédé', 'Mixte', 'Tiers','Écart Prop. ou Dom.','Absence de Sifon'],
-           	labels = ['<strong>Légende:</strong>']
-
-
-
-           	for (var i = 0; i < couleurs.length; i++) {
-                   col = couleurs [i];
-           				vf=valeurs [i];
-           		labels.push(
-           				'<i style="background:' + col + '"></i> ' + vf );
-           				}
-           				div.innerHTML = labels.join('<br>');
-           				return div;
-           				};
-           	legend.addTo(map);
 
            });
+           var legend = L.control({position: 'bottomright'});
+
+          legend.onAdd = function (map) {
+
+          var div = L.DomUtil.create('div', 'info legend'),
+          couleurs = ['#639921', '#0067a3', '#d152b8', '#666','#f2952f','#d53e2a'],
+          valeurs = ['Privé', 'Concédé', 'Mixte', 'Tiers','Écart Prop. ou Dom.','Absence de Sifon'],
+          labels = ['<strong>Légende:</strong>']
+
+
+
+          for (var i = 0; i < couleurs.length; i++) {
+                 col = couleurs [i];
+                vf=valeurs [i];
+            labels.push(
+                '<i style="background:' + col + '"></i> ' + vf );
+                }
+                div.innerHTML = labels.join('<br>');
+                return div;
+                };
+          legend.addTo(map);
 
 	 map.on('overlayadd', function(eo)
 	  {
