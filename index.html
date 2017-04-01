@@ -325,22 +325,24 @@
 
 
 	L.control.scale({imperial: false}).addTo(map);
-
+	
 	new L.Control.GeoSearch({
 	  provider: new L.GeoSearch.Provider.OpenStreetMap(),
 	    position: 'topleft',
 	    showMarker: true,
 	    retainZoomLevel: false,
 	    }).addTo(map);
-         L.control.locate({drawCircle: true,
-            maxZoom: 18,
-	    flyTo : true,
-	    enableHighAccuracy: true,
-	    position: 'topleft',
-	    strings: {
-		title: "Se localiser"
-	    }
-	         }).addTo(map);
+	    
+	 var lc = L.control.locate({
+    	     position: 'topleft',
+	     maxZoom: 18,
+             flyTo : true,
+             strings: {
+             title: "Se localiser"
+             }
+             }).addTo(map);
+
+	    
  map.addControl(L.control.search({layer: L.geoJson, propertyName: 'rec',
  initial: false,
  textErr: 'Parcelle non trouvée',	//error message
