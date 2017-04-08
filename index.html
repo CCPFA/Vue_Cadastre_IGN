@@ -73,6 +73,12 @@
     //var url_ign_lim = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ADMINISTRATIVEUNITS.BOUNDARIES&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
 
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19, detectRetina: false, attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
+    var osm_light  = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+				opacity: 1,
+				maxZoom: 20,
+				edgeBufferTiles: 2
+		});
     var ign_scan = L.tileLayer(url_ign_scan, {maxZoom: 17, detectRetina: true, attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
     var ign_ortho = L.tileLayer(url_ign_ortho, {maxZoom: 17, detectRetina: true, attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
     var ign_parcelaire = L.tileLayer(url_ign_parcelaire, {maxZoom: 20, detectRetina: true, zIndex: 7 ,attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
@@ -85,6 +91,7 @@
 
     var baseMaps = {
     "OSM": osm,
+    "OSM Clair": osm_light,	    
     "Ortho IGN":ign_ortho,
     "Cartes IGN":ign_scan,
     "Topo" : Topo
@@ -101,7 +108,7 @@
             zoom: 5,
 	    //center: [45.1885,5.7245],
 	    //zoom: 13,
-	    layers: [ign_ortho, ign_parcelaire]
+	    layers: [osm, ign_parcelaire]
 	});
 	var hash = new L.Hash(map);
 	L.control.layers(baseMaps,overlays).addTo(map);
@@ -287,6 +294,7 @@
 	     ign_scan.setOpacity(0.5);
 	     ign_ortho.setOpacity(0.5);
 	     osm.setOpacity(0.5);
+	     osm_light.setOpacity(0.5);
 	     Topo.setOpacity(0.5);
 	     //ign_lim.addTo(map);
 	   }
@@ -297,6 +305,7 @@
 	     ign_scan.setOpacity(1);
 	     ign_ortho.setOpacity(1);
 	     osm.setOpacity(1);
+	     osm_light.setOpacity(1);
 	     Topo.setOpacity(1);
 	     //map.removeLayer(ign_lim)(map);
 	   }
@@ -308,6 +317,7 @@
 	     ign_scan.setOpacity(0.5);
 	     ign_ortho.setOpacity(0.5);
 	     osm.setOpacity(0.5);
+	     osm_light.setOpacity(0.5);
 	     Topo.setOpacity(0.5)
           }
           else {
@@ -321,6 +331,7 @@
 	     ign_scan.setOpacity(1);
 	     ign_ortho.setOpacity(1);
 	     osm.setOpacity(1);
+	     osm_light.setOpacity(1);
 	     Topo.setOpacity(1);
           }
        })
