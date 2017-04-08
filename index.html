@@ -301,7 +301,7 @@
 	 })
 	map.on('overlayremove', function(eo)
 	 {
-	   if( eo.name == 'Parcelaire IGN' ) {
+	   if( eo.name == 'Parcelaire IGN' && if !(map.hasLayer(geofoncier_sommets))) {
 	     ign_scan.setOpacity(1);
 	     ign_ortho.setOpacity(1);
 	     osm.setOpacity(1);
@@ -323,7 +323,7 @@
         })
         map.on('overlayremove', function(eo)
         {
-          if( eo.name == 'GeoFoncier' ) {
+          if( eo.name == 'GeoFoncier'  && if !(map.hasLayer(ign_parcelaire))) {
             geofoncier_limites.setOpacity(0),
 	     ign_scan.setOpacity(1);
 	     ign_ortho.setOpacity(1);
