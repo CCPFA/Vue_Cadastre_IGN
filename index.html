@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="./src/leaflet-search.css" />
     <script src="./src/leaflet-search.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
-    <!--<script src="https://mlevans.github.io/leaflet-hash/javascripts/leaflet-hash.js"></script>-->>
+    <script src="https://mlevans.github.io/leaflet-hash/javascripts/leaflet-hash.js"></script>
     <style>
     #map {
         position: absolute;
@@ -103,7 +103,7 @@
 	    //zoom: 13,
 	    layers: [ign_ortho, ign_parcelaire]
 	});
-	//var hash = new L.Hash(map);
+	var hash = new L.Hash(map);
 	L.control.layers(baseMaps,overlays).addTo(map);
 	ign_ortho.setOpacity(0.5);
 	geofoncier_limites.setOpacity(0);
