@@ -324,12 +324,16 @@
         map.on('overlayremove', function(eo)
         {
           if( eo.name == 'GeoFoncier'  &&  !(map.hasLayer(ign_parcelaire))) {
-            geofoncier_limites.setOpacity(0),
+            geofoncier_limites.setOpacity(0);
 	     ign_scan.setOpacity(1);
 	     ign_ortho.setOpacity(1);
 	     osm.setOpacity(1);
 	     //osm_light.setOpacity(1);
 	     Topo.setOpacity(1);
+          }
+	  if( eo.name == 'GeoFoncier'  &&  map.hasLayer(ign_parcelaire)) {
+            geofoncier_limites.setOpacity(0);
+	   
           }
        })
 
