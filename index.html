@@ -254,8 +254,7 @@
 
              map.addControl(window.searchControl);
 	     var legend = L.control({position: 'bottomright'});
-
-          legend.onAdd = function (map) {
+	       legend.onAdd = function (map) {
 
           var div = L.DomUtil.create('div', 'info legend'),
           couleurs = ['#639921', '#0067a3', '#d152b8', '#666','#f2952f','#d53e2a'],
@@ -273,7 +272,9 @@
                 div.innerHTML = labels.join('<br>');
                 return div;
                 };
+	  if (!(map.legenddisplay)) {
           legend.addTo(map);
+          map.legenddisplay = this;}
 
 
 
