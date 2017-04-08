@@ -223,7 +223,7 @@
               }
             }
            ).addTo(map);
-
+	   
            control.loader.on('data:loaded', function (e) {
              // Remove old control, if any
              if (window.searchControl)
@@ -253,11 +253,7 @@
             });
 
              map.addControl(window.searchControl);
-
-
-
-           });
-           var legend = L.control({position: 'bottomright'});
+	     var legend = L.control({position: 'bottomright'});
 
           legend.onAdd = function (map) {
 
@@ -278,6 +274,11 @@
                 return div;
                 };
           legend.addTo(map);
+
+
+
+           });
+           
 
 	 map.on('overlayadd', function(eo)
 	  {
@@ -346,23 +347,7 @@
              }).addTo(map);
 
 	    
- map.addControl(L.control.search({layer: L.geoJson, propertyName: 'rec',
- initial: false,
- textErr: 'Parcelle non trouvée',	//error message
- textCancel: 'Annuler',		    //title in cancel button
- textPlaceholder: 'Rechercher une parcelle...',
- minLength: 0,					//minimal text length for autocomplete
- casesensitive: false,			//search elements in case sensitive text
- autoType: true,
- firstTipSubmit: true,			//auto select first result con enter click
- autoResize: true,
- tooltipLimit: 5,
- moveToLocation: function(latlng, title, map) {
- //map.fitBounds( latlng.layer.getBounds() );
- var zoom = map.getBoundsZoom(latlng.layer.getBounds());
-   map.setView(latlng, zoom); // access the zoom
- }
- }));
+
     </script>
 </body>
 </html>
