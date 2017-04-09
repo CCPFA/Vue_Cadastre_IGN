@@ -72,7 +72,7 @@
     var CLE_IGN = "waueelcut14w654dbkpq8coh";
     var url_ign_scan = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
     var url_ign_parcelaire ="https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=CADASTRALPARCELS.PARCELS&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=bdparcellaire&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
-    var url_ign_ortho = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS.ORTHO-EXPRESS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
+    var url_ign_ortho = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
     var url_ign_lim = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ADMINISTRATIVEUNITS.BOUNDARIES&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
 
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 21, maxNativeZoom: 19, useCache: true, crossOrigin: true, detectRetina: false, attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
