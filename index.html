@@ -80,6 +80,10 @@
 				maxZoom: 21, maxNativeZoom: 19, //useCache: true,
 				//edgeBufferTiles: 2
 		});
+    var osm_dark  = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',opacity: 1,
+				maxZoom: 21, maxNativeZoom: 19, //useCache: true,
+				//edgeBufferTiles: 2
+		});
     var ign_scan = L.tileLayer(url_ign_scan, {maxZoom: 21, maxNativeZoom: 18,
 					      //useCache: true,
 					      //crossOrigin: false,
@@ -107,7 +111,8 @@
 
     var baseMaps = {
     "OSM": osm,
-    "OSM Clair": osm_light,	    
+    "OSM Clair": osm_light,
+    "OSM Sombre": osm_dark,
     "Ortho IGN":ign_ortho,
     "Cartes IGN":ign_scan,
     "Topo" : Topo
