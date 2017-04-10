@@ -197,10 +197,18 @@
         var styleP =  {color:'#639921', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
         var styleC =  {color:'#0067a3', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
         var styleM =  {color:'#d152b8', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
-        var styleD =  {color:'#666', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};//#38a9dc', opacity: 0.0, fillOpacity: 0.1, weight: 1, clickable: true};
-        var styleDA =  {color:'#666', opacity: 1.0, fillOpacity: 0.3, weight: 1, clickable: true};//#38a9dc', opacity: 0.0, fillOpacity: 0.1, weight: 1, clickable: true};
+        var styleD =  {color:'#666', opacity: 1.0, fillOpacity: 0.3, weight: 1, clickable: true};//#38a9dc', opacity: 0.0, fillOpacity: 0.1, weight: 1, clickable: true};
+        var styleDA =  {color:'#666', opacity: 1.0, fillOpacity: 0.0, weight: 1, clickable: true};//#38a9dc', opacity: 0.0, fillOpacity: 0.1, weight: 1, clickable: true};
         var styleZ =  {color:'#d53e2a', opacity: 1.0, fillOpacity: 0.7, weight: 2, clickable: true};
-        var styleE =  {color:'#f2952f', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
+        var styleE =  {color:'#f2952f', opacity: 1.0, fillOpacity: 0.6, weight: 1, clickable: true};
+	var styleF =  {fillColor:'#666', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.3, weight: 3, dashArray: '5', clickable: true};
+	var style2F =  {fillColor:'#666', color:'#666', opacity: 1.0, fillOpacity: 0.0, weight: 3, dashArray: '5', clickable: true};
+	var stylePF =  {fillColor:'#639921', color:'#d53e2a',  opacity: 1.0, fillOpacity: 0.5, weight: 3, dashArray: '5', clickable: true};
+	var styleMF =  {fillColor:'#d152b8', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.5, weight: 3, dashArray: '5', clickable: true};
+	var styleCF =  {fillColor:'#0067a3', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.5, weight: 3, dashArray: '5', clickable: true};
+	var styleEF =  {fillColor:'#f2952f', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.6, weight: 3, dashArray: '5', clickable: true};
+	var styleZF =  {fillColor:'#d53e2a', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.7, weight: 3, dashArray: '5', clickable: true};
+        
 
 	L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';// '⌘';
 	var control = new L.Control.fileLayerLoad({
@@ -209,26 +217,47 @@
             fitBounds: true,
             layerOptions: {
               pointToLayer: function(feature, latlng) {
-                if (feature.properties.PCM == "P"){
-                       return L.marker(latlng, {icon: PIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+               if (feature.properties.PCM == "P"){
+                       return L.marker(latlng, {icon: PIcon}).bindPopup(feature['properties']['Description'],customOptions)
                    }
                 else if (feature.properties.PCM == "C"){
-                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],customOptions)
                    }
                 else if (feature.properties.PCM == "M"){
-                  return L.marker(latlng, {icon: MIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                  return L.marker(latlng, {icon: MIcon}).bindPopup(feature['properties']['Description'],customOptions)
                   }
                 else if (feature.properties.PCM == "2"){
-                  return L.marker(latlng, {icon: DIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                  return L.marker(latlng, {icon: DIcon}).bindPopup(feature['properties']['Description'],customOptions)
                   }
                 else if (feature.properties.PCM == "2A"){
-                  return L.marker(latlng, {icon: DAIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                  return L.marker(latlng, {icon: DAIcon}).bindPopup(feature['properties']['Description'],customOptions)
                   }
                 else if (feature.properties.PCM == "Z"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptions)
                   }
                  else if (feature.properties.PCM == "E"){
-                   return L.marker(latlng, {icon: EIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                   return L.marker(latlng, {icon: EIcon}).bindPopup(feature['properties']['Description'],customOptions)
+                  }
+				 else if (feature.properties.PCM == "F"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+				 else if (feature.properties.PCM == "2F"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+				 else if (feature.properties.PCM == "PF"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+				 else if (feature.properties.PCM == "MF"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+				 else if (feature.properties.PCM == "CF"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+				 else if (feature.properties.PCM == "EF"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+				 else if (feature.properties.PCM == "ZF"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
                   }
                 },
 
@@ -268,10 +297,34 @@
                     else if (feature.properties.PCM == "E" && feature.geometry.type !="Point"){
                       layer.setStyle(styleE);
                     }
+		    else if (feature.properties.PCM == "F" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleF);
+                    }
+		    else if (feature.properties.PCM == "2F" && feature.geometry.type !="Point"){
+                      layer.setStyle(style2F);
+                    }
+		    else if (feature.properties.PCM == "PF" && feature.geometry.type !="Point"){
+                      layer.setStyle(stylePF);
+                    }
+		    else if (feature.properties.PCM == "MF" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleMF);
+                    }
+		    else if (feature.properties.PCM == "CF" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleCF);
+                    }
+		    else if (feature.properties.PCM == "EF" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleEF);
+                    }
+		    else if (feature.properties.PCM == "ZF" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleZF);
+                    }
                   }
                 );
-                  if (feature.properties) {
-                      layer.bindPopup(feature['properties']['Description'],{maxWidth: 300, maxHeight: 350});
+                  if (feature.properties.PCM in {"P":"P","C":"P","M":"P","2":"P","2A":"P","Z":"P","E":"P"} ) {
+                      layer.bindPopup(feature['properties']['Description'],customOptions);
+                  }
+				  else if (feature.properties.PCM in {"2F":"P","F":"P","PF":"P","MF":"P","CF":"P","EF":"P","ZF":"P"} ) {
+                      layer.bindPopup(feature['properties']['Description'],customOptionsF);
                   }
                 },
                 style: function(feature){
@@ -283,6 +336,13 @@
                    case '2A': return styleDA;
                    case 'Z': return styleZ;
                    case 'E': return styleE;
+		   case 'F': return styleF;
+		   case '2F': return style2F;
+		   case 'PF': return stylePF;
+		   case 'CF': return styleCF;
+		   case 'MF': return styleMF;
+		   case 'EF': return styleEF;
+		   case 'ZF': return styleZF;
                    }
                 }
 
