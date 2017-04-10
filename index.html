@@ -354,7 +354,7 @@
 	//   }
 	// })	
 
-	 map.on('overlayadd', function(eo)
+	 map.on('zoomend', function(eo)
 	  {zoomlev=map.getZoom();
 	   if( eo.name == 'Parcelaire IGN' && zoomlev>13) {
 	     ign_scan.setOpacity(0.5);
