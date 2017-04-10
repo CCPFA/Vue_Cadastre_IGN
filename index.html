@@ -356,13 +356,22 @@
 
 	 map.on('zoomend', function(eo)
 	  {zoomlev=map.getZoom();
-	   if( eo.name == 'Parcelaire IGN' && zoomlev>13) {
+	   if( eo.name == 'Parcelaire IGN') {
+		    if (zoomlev>13){
 	     ign_scan.setOpacity(0.5);
 	     ign_ortho.setOpacity(0.5);
 	     osm.setOpacity(0.5);
 	     //osm_light.setOpacity(0.8);
 	     Topo.setOpacity(0.5);
 	     //ign_lim.addTo(map);
+	   }
+		   else{
+		  	     ign_scan.setOpacity(0.5);
+	     ign_ortho.setOpacity(1);
+	     osm.setOpacity(1);
+	     //osm_light.setOpacity(0.8);
+	     Topo.setOpacity(1);
+	     //ign_lim.addTo(map); }
 	   }
 	 })
 	map.on('overlayremove', function(eo)
