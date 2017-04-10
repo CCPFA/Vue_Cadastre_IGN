@@ -354,7 +354,7 @@
 	//   }
 	// })	
 	
-	 map.on('zoomend',{
+	 map.on('zoomend',function(e){
 		 zoomlev=map.getzoom()
 		 if (zoomlev<14){
 	     ign_scan.setOpacity(1);
