@@ -209,6 +209,13 @@
 	var styleEF =  {fillColor:'#f2952f', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.6, weight: 3, dashArray: '5', clickable: true};
 	var styleZF =  {fillColor:'#d53e2a', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.7, weight: 3, dashArray: '5', clickable: true};
         
+	var customOptions =
+	        {
+	        'maxWidth': '400',
+					'maxHeight': '400',
+	        'className' : 'custom'
+	        }
+	
 	var customOptionsF =
 	        {
 	        'maxWidth': '500',
@@ -325,8 +332,11 @@
                     }
                   }
                 );
-                  if (feature.properties) {
-                      layer.bindPopup(feature['properties']['Description'],{maxWidth: 300, maxHeight: 350});
+		if (feature.properties.PCM in {"P":"P","C":"P","M":"P","2":"P","2A":"P","Z":"P","E":"P"} ) {
+                      layer.bindPopup(feature['properties']['Description'],customOptions);
+                  }
+				  else if (feature.properties.PCM in {"2F":"P","F":"P","PF":"P","MF":"P","CF":"P","EF":"P","ZF":"P"} ) {
+                      layer.bindPopup(feature['properties']['Description'],customOptionsF);
                   }
                 },
                 style: function(feature){
