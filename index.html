@@ -82,10 +82,10 @@
 				maxZoom: 21, maxNativeZoom: 19, //useCache: true,
 				//edgeBufferTiles: 2
 		});
-    var osm_dark  = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',opacity: 1,
-				maxZoom: 21, maxNativeZoom: 19, //useCache: true,
+    //var osm_dark  = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',opacity: 1,
+//				maxZoom: 21, maxNativeZoom: 19, //useCache: true,
 				//edgeBufferTiles: 2
-		});
+//		});
     var ign_scan = L.tileLayer(url_ign_scan, {maxZoom: 21, maxNativeZoom: 18,
 					      //useCache: true,
 					      //crossOrigin: false,
@@ -98,10 +98,10 @@
 							  //useCache: true,
 							  //crossOrigin: false,
 							  detectRetina: true, zIndex: 7 ,attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
-    var ign_parcelaire_o = L.tileLayer(url_ign_parcelaire_o, {maxZoom: 21, maxNativeZoom: 20,
+   // var ign_parcelaire_o = L.tileLayer(url_ign_parcelaire_o, {maxZoom: 21, maxNativeZoom: 20,
 							  //useCache: true,
 							  //crossOrigin: false,
-							  detectRetina: true, zIndex: 7 ,attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
+//							  detectRetina: true, zIndex: 7 ,attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
     var ign_lim = L.tileLayer(url_ign_lim, {maxZoom: 21, maxNativeZoom: 20,
 					    //useCache: true,
 					    zIndex: 8,
@@ -118,7 +118,7 @@
     var baseMaps = {
     "OSM": osm,
     "OSM Clair": osm_light,
-    "OSM Sombre": osm_dark,
+   // "OSM Sombre": osm_dark,
     "Ortho IGN":ign_ortho,
     "Cartes IGN":ign_scan,
     "Topo" : Topo
@@ -315,13 +315,13 @@
 
            });
            
-	map.on('baselayerchange',function(eo)
-	  {
-	   if( eo.name == "OSM Sombre" &&  map.hasLayer(ign_parcelaire)) {
-	     map.removeLayer(ign_parcelaire);
-		 map.addLayer(ign_parcelaire_o);
-	   }
-	 })	
+	//map.on('baselayerchange',function(eo)
+	//  {
+	//   if( eo.name == "OSM Sombre" &&  map.hasLayer(ign_parcelaire)) {
+	//     map.removeLayer(ign_parcelaire);
+	//	 map.addLayer(ign_parcelaire_o);
+	//   }
+	// })	
 
 	 map.on('overlayadd', function(eo)
 	  {
