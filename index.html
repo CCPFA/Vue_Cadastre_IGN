@@ -128,7 +128,11 @@
 										  edgeBufferTiles: 2,
 										 //useCache: true,
 										 detectRetina: true, attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'});
-    var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {maxZoom: 19,  useCache: true, crossOrigin: false, detectRetina: false, zIndex: 8, attribution: '&copy; IGN, BD Carthage' });
+    var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {maxZoom: 19,
+												 //useCache: true,
+												 //crossOrigin: false,
+												  edgeBufferTiles: 2,
+												 detectRetina: false, zIndex: 8, attribution: '&copy; IGN, BD Carthage' });
     var geofoncier_sommets= L.tileLayer.wms("https://api.geofoncier.fr/referentielsoge/ogc/wxs?", {layers: 'RFU_FXX_SOMMETS', format: 'image/png', maxZoom: 20, detectRetina: false, zIndex: 12, transparent: true, attribution: "© GéoFoncier"});
     var geofoncier_limites= L.tileLayer.wms("https://api.geofoncier.fr/referentielsoge/ogc/wxs?", {layers: 'RFU_FXX_LIMITES', format: 'image/png', maxZoom: 20, detectRetina: false, zIndex: 11, transparent: true});
 
