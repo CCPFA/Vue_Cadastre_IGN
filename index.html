@@ -320,11 +320,8 @@
                     }
                   }
                 );
-                  if (feature.properties.PCM in {"P":"P","C":"P","M":"P","2":"P","2A":"P","Z":"P","E":"P"} ) {
-                      layer.bindPopup(feature['properties']['Description'],customOptions);
-                  }
-				  else if (feature.properties.PCM in {"2F":"P","F":"P","PF":"P","MF":"P","CF":"P","EF":"P","ZF":"P"} ) {
-                      layer.bindPopup(feature['properties']['Description'],customOptionsF);
+                  if (feature.properties) {
+                      layer.bindPopup(feature['properties']['Description'],{maxWidth: 300, maxHeight: 350});
                   }
                 },
                 style: function(feature){
