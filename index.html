@@ -355,8 +355,8 @@
 	// })	
 
 	 map.on('overlayadd', function(eo)
-	  {
-	   if( eo.name == 'Parcelaire IGN' && map.getZoom()>13) {
+	  {zoomlev=map.getZoom();
+	   if( eo.name == 'Parcelaire IGN' && zoomlev>13) {
 	     ign_scan.setOpacity(0.5);
 	     ign_ortho.setOpacity(0.5);
 	     osm.setOpacity(0.5);
