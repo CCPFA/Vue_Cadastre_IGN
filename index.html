@@ -317,18 +317,12 @@
            
 	map.on('baselayerchange',function(eo)
 	  {
-	   if( eo.name == "OSM Sombre" &&  map.hasLayer("Parcelaire IGN")) {
+	   if( eo.name == "OSM Sombre" &&  map.hasLayer(ign_parcelaire)) {
 	     map.removeLayer(ign_parcelaire);
 		 map.addLayer(ign_parcelaire_o);
 	   }
 	 })	
-	map.on('baselayerchange',function(eo)
-	  {
-	   if( eo.name != "OSM Sombre" &&  map.hasLayer("Parcelaire IGN")) {
-	     map.removeLayer(ign_parcelaire_o);
-		 map.addLayer(ign_parcelaire);
-	   }
-	 })	    
+
 	 map.on('overlayadd', function(eo)
 	  {
 	   if( eo.name == 'Parcelaire IGN' ) {
