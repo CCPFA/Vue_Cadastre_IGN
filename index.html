@@ -209,7 +209,12 @@
 	var styleEF =  {fillColor:'#f2952f', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.6, weight: 3, dashArray: '5', clickable: true};
 	var styleZF =  {fillColor:'#d53e2a', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.7, weight: 3, dashArray: '5', clickable: true};
         
-
+	var customOptionsF =
+	        {
+	        'maxWidth': '500',
+					'maxHeight': '400',
+	        'className' : 'custom'
+	        }
 	L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';// '⌘';
 	var control = new L.Control.fileLayerLoad({
             layer: L.geoJson,
@@ -238,25 +243,25 @@
                  else if (feature.properties.PCM == "E"){
                    return L.marker(latlng, {icon: EIcon}).bindPopup(feature['properties']['Description'],customOptions)
                   }
-				 else if (feature.properties.PCM == "F"){
+		 else if (feature.properties.PCM == "F"){
                   return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
                   }
-				 else if (feature.properties.PCM == "2F"){
+		 else if (feature.properties.PCM == "2F"){
                   return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
                   }
-				 else if (feature.properties.PCM == "PF"){
+		 else if (feature.properties.PCM == "PF"){
                   return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
                   }
-				 else if (feature.properties.PCM == "MF"){
+		 else if (feature.properties.PCM == "MF"){
                   return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
                   }
-				 else if (feature.properties.PCM == "CF"){
+		 else if (feature.properties.PCM == "CF"){
                   return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
                   }
-				 else if (feature.properties.PCM == "EF"){
+		 else if (feature.properties.PCM == "EF"){
                   return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
                   }
-				 else if (feature.properties.PCM == "ZF"){
+		 else if (feature.properties.PCM == "ZF"){
                   return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
                   }
                 },
