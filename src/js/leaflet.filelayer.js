@@ -42,7 +42,8 @@
                 geojson: this._loadGeoJSON,
                 json: this._loadGeoJSON,
                 gpx: this._convertToGeoJSON,
-                kml: this._convertToGeoJSON
+                kml: this._convertToGeoJSON,
+                txt: this._loadGeoJSON,
             };
         },
 
@@ -192,7 +193,7 @@
             fileInput.type = 'file';
             fileInput.multiple = 'multiple';
             if (!this.options.formats) {
-                fileInput.accept = '.gpx,.kml,.geojson';
+                fileInput.accept = '.gpx,.kml,.geojson,.txt';
             } else {
                 fileInput.accept = this.options.formats.join(',');
             }
