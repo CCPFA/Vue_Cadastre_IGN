@@ -43,7 +43,7 @@
                 json: this._loadGeoJSON,
                 gpx: this._convertToGeoJSON,
                 kml: this._convertToGeoJSON,
-                txt: this._loadGeoJSON,
+                txt: this._loadGeoJSON
             };
         },
 
