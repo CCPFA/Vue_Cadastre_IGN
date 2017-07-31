@@ -341,7 +341,7 @@
 		    }
                   }
                 );
-		if (feature.properties.PCM in {"P":"P","C":"P","M":"P","2":"P","2A":"P","Z":"P","E":"P"} ) {
+		if (feature.properties.PCM in {"P":"P","C":"P","M":"P","2":"P","2A":"P","Z":"P","E":"P","sans":"P","avec":"P"} ) {
                       layer.bindPopup(feature['properties']['Description'],customOptions);
                   }
 				  else if (feature.properties.PCM in {"2F":"P","F":"P","PF":"P","MF":"P","CF":"P","EF":"P","ZF":"P"} ) {
@@ -365,7 +365,7 @@
 		   case 'EF': return styleEF;
 		   case 'ZF': return styleZF;
                    case 'sans': return style_sans;
-                   case 'avec': return avec;
+                   case 'avec': return style_avec;
                                       }
                 }
 
