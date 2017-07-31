@@ -209,6 +209,9 @@
 	var styleEF =  {fillColor:'#f2952f', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.6, weight: 2, dashArray: '5', clickable: true};
 	var styleZF =  {fillColor:'#d53e2a', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.7, weight: 2, dashArray: '5', clickable: true};
         
+	var style_avec =    {color:'red', opacity: 1.0, weight: 2, dashArray: '5', clickable: true};
+	var style_sans =    {color:'darkgreen', opacity: 1.0, weight: 2, clickable: true};    
+	
 	var customOptions =
 	        {
 	        'maxWidth': '400',
@@ -329,7 +332,12 @@
                     }
 		    else if (feature.properties.PCM == "ZF" && feature.geometry.type !="Point"){
                       layer.setStyle(styleZF);
+		   else if (feature.properties.rupture == "sans" && feature.geometry.type !="Point"){
+                      layer.setStyle(style_sans);
                     }
+                    else if (feature.properties.rupture == "avec" && feature.geometry.type !="Point"){
+                      layer.setStyle(style_avec);
+		    }
                   }
                 );
 		if (feature.properties.PCM in {"P":"P","C":"P","M":"P","2":"P","2A":"P","Z":"P","E":"P"} ) {
@@ -356,6 +364,10 @@
 		   case 'EF': return styleEF;
 		   case 'ZF': return styleZF;
                    }
+		switch (feature['properties']['rupture']){
+                   case 'sans': return style_sans;
+                   case 'avec': return avec;
+                                      }
                 }
 
               }
