@@ -333,10 +333,10 @@
 		    else if (feature.properties.PCM == "ZF" && feature.geometry.type !="Point"){
                       layer.setStyle(styleZF);
 		    }
-		   else if (feature.properties.PCM == "sans" && feature.geometry.type !="Point"){
+		   else if (feature.properties.PCM == "sans" && feature.geometry.type =="MultiLineString"){
                       layer.setStyle(style_sans);
                     }
-                    else if (feature.properties.PCM == "avec" && feature.geometry.type !="Point"){
+                    else if (feature.properties.PCM == "avec" && feature.geometry.type =="MultiLineString"){
                       layer.setStyle(style_avec);
 		    }
                   }
