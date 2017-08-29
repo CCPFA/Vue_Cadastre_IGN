@@ -209,8 +209,8 @@
 	var styleEF =  {fillColor:'#f2952f', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.6, weight: 2, dashArray: '5', clickable: true};
 	var styleZF =  {fillColor:'#d53e2a', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.7, weight: 2, dashArray: '5', clickable: true};
         
-	var style_avec =    {color:'OrangeRed ', opacity: 1.0, weight: 2, clickable: true};
-	var style_sans =    {color:'lime', opacity: 1.0, weight: 2, dashArray: '5',clickable: true};    
+	var style_avec =    {fillColor:false,color:'OrangeRed ', opacity: 1.0, weight: 2, clickable: true, fillOpacity:0};
+	var style_sans =    {fillColor:false,color:'lime', opacity: 1.0, weight: 2, dashArray: '5',clickable: true, fillOpacity:0};    
 	
 	var customOptions =
 	        {
@@ -274,20 +274,30 @@
 		 else if (feature.properties.PCM == "ZF"){
                   return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
                   }
+		else if (feature.properties.PCM == "2AF"){
+                  return L.marker(latlng, {icon: DAIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
                 },
 
                 onEachFeature: function (feature, layer) {
                   layer.on('mouseover', function highlightFeature(e) {
                     var layer = e.target;
                     if (feature.geometry.type !="Point"){
+						if (feature.properties.PCM =='sans' ||feature.properties.PCM =='avec'){ 
                       layer.setStyle({
                         weight: 4,
                         //color: '#666',
                         //dashArray: '',
-                        fillOpacity: 0.8
+                        fillOpacity: 0
                       });
                       }
-                    }
+					  else{layer.setStyle({
+                        weight: 4,
+                        //color: '#666',
+                        //dashArray: '',
+                        fillOpacity: 0.8
+                      });}
+                    }}
                   );
                   layer.on('mouseout', function resetHighlight(e) {
                     var layer = e.target;
@@ -333,18 +343,31 @@
 		    else if (feature.properties.PCM == "ZF" && feature.geometry.type !="Point"){
                       layer.setStyle(styleZF);
 		    }
+			else if (feature.properties.PCM == "ZF" && feature.geometry.type !="Point"){
+                      layer.setStyle(style2F);
+		    }
+			else if (feature.properties.PCM == "2AF" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleZF);
+		    }
 		   else if (feature.properties.PCM == "sans" && feature.geometry.type =="MultiLineString"){
                       layer.setStyle(style_sans);
                     }
-                    else if (feature.properties.PCM == "avec" && feature.geometry.type =="MultiLineString"){
-                      layer.setStyle(style_avec);
+			else if (feature.properties.PCM == "avec" && feature.geometry.type =="MultiLineString"){
+			  layer.setStyle(style_avec);
+		    }
+			
+			else if (feature.properties.PCM == "sans" && feature.geometry.type =="MultiPolygon"){
+                      layer.setStyle(style_sans);
+                    }
+			else if (feature.properties.PCM == "avec" && feature.geometry.type =="MultiPolygon"){
+			  layer.setStyle(style_avec);
 		    }
                   }
                 );
 		if (feature.properties.PCM in {"P":"P","C":"P","M":"P","2":"P","2A":"P","Z":"P","E":"P","sans":"P","avec":"P"} ) {
                       layer.bindPopup(feature['properties']['Description'],customOptions);
                   }
-				  else if (feature.properties.PCM in {"2F":"P","F":"P","PF":"P","MF":"P","CF":"P","EF":"P","ZF":"P"} ) {
+				  else if (feature.properties.PCM in {"2F":"P","F":"P","PF":"P","MF":"P","CF":"P","EF":"P","ZF":"P","2AF":"P"} ) {
                       layer.bindPopup(feature['properties']['Description'],customOptionsF);
                   }
                 },
@@ -364,6 +387,7 @@
 		   case 'MF': return styleMF;
 		   case 'EF': return styleEF;
 		   case 'ZF': return styleZF;
+		   case '2AF': return styleDA;
                    case 'sans': return style_sans;
                    case 'avec': return style_avec;
                                       }
