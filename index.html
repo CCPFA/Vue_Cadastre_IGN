@@ -194,18 +194,18 @@
         var ZIcon = L.AwesomeMarkers.icon({icon: 'warning', markerColor: 'red', prefix: 'fa', iconColor: 'white'});
         var EIcon = L.AwesomeMarkers.icon({icon: 'exclamation-circle', markerColor: 'orange', prefix: 'fa', iconColor: 'white'});
 
-        var styleP =  {color:'#639921', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
-        var styleC =  {color:'#0067a3', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
-        var styleM =  {color:'#d152b8', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
+        var styleP =  {color:'#008000', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
+        var styleC =  {color:'#ffa07a', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
+        var styleM =  {color:'#da70d6', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
         var styleD =  {color:'#666', opacity: 1.0, fillOpacity: 0.3, weight: 1, clickable: true};//#38a9dc', opacity: 0.0, fillOpacity: 0.1, weight: 1, clickable: true};
         var styleDA =  {color:'#666', opacity: 1.0, fillOpacity: 0.0, weight: 1, clickable: true};//#38a9dc', opacity: 0.0, fillOpacity: 0.1, weight: 1, clickable: true};
         var styleZ =  {color:'#d53e2a', opacity: 1.0, fillOpacity: 0.7, weight: 1, clickable: true};
         var styleE =  {color:'#f2952f', opacity: 1.0, fillOpacity: 0.6, weight: 1, clickable: true};
 	var styleF =  {fillColor:'#666', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.3, weight: 2, dashArray: '5', clickable: true};
 	var style2F =  {fillColor:'#666', color:'#666', opacity: 1.0, fillOpacity: 0.0, weight: 2, dashArray: '5', clickable: true};
-	var stylePF =  {fillColor:'#639921', color:'#d53e2a',  opacity: 1.0, fillOpacity: 0.5, weight: 2, dashArray: '5', clickable: true};
-	var styleMF =  {fillColor:'#d152b8', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.5, weight: 2, dashArray: '5', clickable: true};
-	var styleCF =  {fillColor:'#0067a3', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.5, weight: 2, dashArray: '5', clickable: true};
+	var stylePF =  {fillColor:'#008000', color:'#d53e2a',  opacity: 1.0, fillOpacity: 0.5, weight: 2, dashArray: '5', clickable: true};
+	var styleMF =  {fillColor:'#da70d6', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.5, weight: 2, dashArray: '5', clickable: true};
+	var styleCF =  {fillColor:'#ffa07a', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.5, weight: 2, dashArray: '5', clickable: true};
 	var styleEF =  {fillColor:'#f2952f', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.6, weight: 2, dashArray: '5', clickable: true};
 	var styleZF =  {fillColor:'#d53e2a', color:'#d53e2a', opacity: 1.0, fillOpacity: 0.7, weight: 2, dashArray: '5', clickable: true};
         
@@ -430,7 +430,7 @@
 	       legend.onAdd = function (map) {
 
           var div = L.DomUtil.create('div', 'info legend'),
-          couleurs = ['#639921', '#0067a3', '#d152b8', '#666','#f2952f','#d53e2a'],
+          couleurs = ['#008000', '#ffa07a', '#da70d6', '#666','#ffff00','#ff0000'],
           valeurs = ['Privé', 'Concédé', 'Mixte', 'Tiers','Écart','Absence'],
           labels = ['<strong>Légende:</strong>']
 
