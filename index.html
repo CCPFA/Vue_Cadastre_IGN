@@ -1,78 +1,186 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="minimal-ui,width=device-width, initial-scale=1.0, fullscreen=true, maximum-scale=1.0, user-scalable=no", charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", charset="UTF-8" />
     <title>Vue Cadastre</title>
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />-->
-    <link rel="stylesheet" href="./src/css/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
-    <script src="https://use.fontawesome.com/9193c58103.js"></script>
+    <!--<script src="https://use.fontawesome.com/9193c58103.js"></script>-->
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' rel='stylesheet' />
     <link href='https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css' rel='stylesheet' />
-    <link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/css/font-awesome.min.css' />
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>-->
-    <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
-    <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
-    <script src="https://makinacorpus.github.io/Leaflet.FileLayer/leaflet.filelayer.js"></script>
-    <script src="https://makinacorpus.github.io/Leaflet.FileLayer/togeojson/togeojson.js"></script>
-    <script src="./src/js/L.Control.Locate.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="./src/js/leaflet.filelayer.js"></script>
+    <script src="./src/js/togeojson.js"></script>
+    <script src="./src/js/leaflet.edgebuffer.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/6.1.1/pouchdb.min.js"></script>-->
+    <!--<script src="https://unpkg.com/leaflet.tilelayer.pouchdbcached@latest/L.TileLayer.PouchDBCached.js"></script>-->
+    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.css" />
+    <script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
     <script src="./src/js/l.control.geosearch.js"></script>
     <script src="./src/js/l.geosearch.provider.openstreetmap.js"></script>
     <link rel="stylesheet" href="./src/css/l.geosearch.css" />
+    <link rel="stylesheet" href="./src/leaflet-search.css" />
+    <script src="./src/leaflet-search.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
-    <!--<script src="https://mlevans.github.io/leaflet-hash/javascripts/leaflet-hash.js"></script>-->>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.pm@0.25.0/dist/leaflet.pm.css" />
+	<script src="https://unpkg.com/leaflet.pm@0.25.0/dist/leaflet.pm.min.js"></script>
+	<link rel="stylesheet" href="./src/easy-button.css" />
+	<script src="./src/easy-button.js"></script>
     <style>
-        #map {
-            position: absolute;
-            top:0;
-            left: 0;
-            right: 0;
-            bottom:0;
-        }
+    #map {
+        position: absolute;
+        top:0;
+        left: 0;
+        right: 0;
+        bottom:0;
+    }
+    .info {
+      text-align: left;
+      line-height: 14px;
+      color: #555;
+      float: left;
+      margin-right: 4px;
+    padding: 5px 20px;
+    font: 12px/14px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.7);
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 5px;
+  }
+  .info h4 {
+    margin: 0 0 5px;
+    color: #777;
+  }
+
+  .legend {
+    text-align: left;
+    line-height: 14px;
+    color: #555;
+  }
+  .legend i {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-right: 4px;
+    opacity: 0.7;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 5px;
+  }
     </style>
 </head>
 <body>
     <div id="map"></div>
-
+	<div id='delete'>Delete Features</div>
+	<a href='#' id='export'></a>
     <script type="text/javascript">
     var CLE_IGN = "waueelcut14w654dbkpq8coh";
-    var url_ign_scan = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
+    var url_ign_scan = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
     var url_ign_parcelaire ="https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=CADASTRALPARCELS.PARCELS&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=bdparcellaire&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
+    //var url_ign_parcelaire_o ="https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=CADASTRALPARCELS.PARCELS&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=bdparcellaire_o&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
     var url_ign_ortho = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
-    //var url_ign_lim = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ADMINISTRATIVEUNITS.BOUNDARIES&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
-    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19, detectRetina: false, attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
-    var ign_scan = L.tileLayer(url_ign_scan, {maxZoom: 17, detectRetina: false, attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
-    var ign_ortho = L.tileLayer(url_ign_ortho, {maxZoom: 19, detectRetina: false, attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
-    var ign_parcelaire = L.tileLayer(url_ign_parcelaire, {maxZoom: 20, detectRetina: false, zIndex: 7 ,attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
-    //var ign_lim = L.tileLayer(url_ign_lim, {maxZoom: 20, zIndex=8, detectRetina: false});
-    
-    var Topo =  L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {maxZoom: 19, attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'});
-    var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {maxZoom: 19, detectRetina: false, zIndex: 8, attribution: '&copy; IGN, BD Carthage' });
-    var geofoncier_sommets= L.tileLayer.wms("https://api.geofoncier.fr/referentielsoge/ogc/wxs?", {layers: 'RFU_FXX_SOMMETS', format: 'image/png', maxZoom: 20, detectRetina: false, zIndex: 9, transparent: true, attribution: "© GéoFoncier"});
-    var geofoncier_limites= L.tileLayer.wms("https://api.geofoncier.fr/referentielsoge/ogc/wxs?", {layers: 'RFU_FXX_LIMITES', format: 'image/png', maxZoom: 20, detectRetina: false, zIndex: 8, transparent: true});
+    //var url_ign_ortho = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=HR.ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
+    var url_ign_lim = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ADMINISTRATIVEUNITS.BOUNDARIES&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
+    var url_ign_noms = "https://gpp3-wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=GEOGRAPHICALNAMES.NAMES&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
+
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 21, maxNativeZoom: 19,
+										 edgeBufferTiles: 2,
+										 //useCache: false,
+										 //crossOrigin: false,
+										 detectRetina: false,
+										 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
+    var osm_light  = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',opacity: 1,
+				maxZoom: 21, maxNativeZoom: 19, //useCache: true,
+				edgeBufferTiles: 2
+				//detectRetina: true,										  
+														  
+		});
+    //var osm_dark  = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',opacity: 1,
+//				maxZoom: 21, maxNativeZoom: 19, //useCache: true,
+				//edgeBufferTiles: 2
+//		});
+    var ign_scan = L.tileLayer(url_ign_scan, {maxZoom: 21, maxNativeZoom: 18,
+					       edgeBufferTiles: 2,
+					      //useCache: true,
+					      //crossOrigin: false,
+					      //detectRetina: true,
+					      attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
+    var ign_ortho = L.tileLayer(url_ign_ortho, {maxZoom: 21, maxNativeZoom: 19,
+						 //edgeBufferTiles: 2,
+						//useCache: true,
+						//crossOrigin: false,
+						//detectRetina: true,
+						attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
+    var ign_parcelaire = L.tileLayer(url_ign_parcelaire, {maxZoom: 21, maxNativeZoom: 20,
+							   //edgeBufferTiles: 2,
+							  //useCache: true,
+							  //crossOrigin: false,
+							  minZoom:14,
+							  //detectRetina: true,
+							  zIndex: 7 ,attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
+   // var ign_parcelaire_o = L.tileLayer(url_ign_parcelaire_o, {maxZoom: 21, maxNativeZoom: 20,
+							  //useCache: true,
+							  //crossOrigin: false,
+//							  detectRetina: true, zIndex: 7 ,attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
+    var ign_lim = L.tileLayer(url_ign_lim, {maxZoom: 21, maxNativeZoom: 20,
+					     //edgeBufferTiles: 2,
+					    //useCache: true,
+					    zIndex: 8,
+					    //crossOrigin: false,
+					    //detectRetina: true,
+					    attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
+    var ign_noms = L.tileLayer(url_ign_noms, {maxZoom: 21, maxNativeZoom: 20,
+					       //edgeBufferTiles: 2,
+					    //useCache: true,
+					    zIndex: 8,
+					    //crossOrigin: false,
+					    //detectRetina: true,
+					      attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
+
+    var Topo =  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {maxZoom: 18, maxNativeZoom: 17,
+										  //edgeBufferTiles: 2,
+										 //useCache: true,
+										 detectRetina: true,
+										 attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'});
+    var carthage = L.tileLayer('https://a.tile.openstreetmap.fr/route500hydro/{z}/{x}/{y}.png', {maxZoom: 19,
+												 //useCache: true,
+												 //crossOrigin: false,
+												  //edgeBufferTiles: 2,
+												 detectRetina: false, zIndex: 8, attribution: '&copy; IGN, BD Carthage' });
+    var geofoncier_sommets= L.tileLayer.wms("https://api.geofoncier.fr/referentielsoge/ogc/wxs?", {layers: 'RFU_FXX_SOMMETS', format: 'image/png', maxZoom: 20, detectRetina: false, zIndex: 12, transparent: true, attribution: "© GéoFoncier"});
+    var geofoncier_limites= L.tileLayer.wms("https://api.geofoncier.fr/referentielsoge/ogc/wxs?", {layers: 'RFU_FXX_LIMITES', format: 'image/png', maxZoom: 20, detectRetina: false, zIndex: 11, transparent: true});
+
     var baseMaps = {
     "OSM": osm,
+    "OSM Clair": osm_light,
+   // "OSM Sombre": osm_dark,
     "Ortho IGN":ign_ortho,
     "Cartes IGN":ign_scan,
     "Topo" : Topo
     };
+
 	var overlays = {
 	  "Parcelaire IGN":ign_parcelaire,
+      "Limites adm.": ign_lim,
 	  "GeoFoncier": geofoncier_sommets,
 	  "Rivières": carthage
        };
-	
+
 	var map = L.map('map', {
-	    center: [45.19089,5.70355],
-	    zoom: 18,
-	    layers: [osm, ign_parcelaire]
+	    center: [46.5,2.34],
+            zoom: 5,
+	    //center: [45.1885,5.7245],
+	    //zoom: 13,
+	    layers: [osm_light, ign_parcelaire]
 	});
-	//var hash = new L.Hash(map);
+	var hash = new L.Hash(map);
 	L.control.layers(baseMaps,overlays).addTo(map);
-	osm.setOpacity(0.7);
+	ign_ortho.setOpacity(0.5);
 	geofoncier_limites.setOpacity(0);
         map.addLayer(geofoncier_limites)
-	
-	
+
+
 	var style = {color:'red', opacity: 1.0, fillOpacity: 0.1, weight: 2, clickable: true};
 	var geojsonMarkerOptions = {
           radius: 8,
@@ -82,6 +190,7 @@
           opacity: 1,
           fillOpacity: 0.8
           };
+
         var PIcon = L.AwesomeMarkers.icon({icon: 'check', markerColor: 'green', prefix: 'fa', iconColor: 'white'});
         var CIcon = L.AwesomeMarkers.icon({icon: 'gift', markerColor: 'darkblue', prefix: 'fa', iconColor: 'white'});
         var MIcon = L.AwesomeMarkers.icon({icon: 'exchange', markerColor: 'purple', prefix: 'fa', iconColor: 'white'});
@@ -89,54 +198,111 @@
         var DAIcon = L.AwesomeMarkers.icon({icon: 'user', markerColor: 'gray', prefix: 'fa', iconColor: 'white'});
         var ZIcon = L.AwesomeMarkers.icon({icon: 'warning', markerColor: 'red', prefix: 'fa', iconColor: 'white'});
         var EIcon = L.AwesomeMarkers.icon({icon: 'exclamation-circle', markerColor: 'orange', prefix: 'fa', iconColor: 'white'});
-        var styleP =  {color:'#639921', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
-        var styleC =  {color:'#0067a3', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
-        var styleM =  {color:'#d152b8', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
+
+        var styleP =  {color:'#008000', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
+        var styleC =  {color:'#ffa07a', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
+        var styleM =  {color:'#da70d6', opacity: 1.0, fillOpacity: 0.5, weight: 1, clickable: true};
         var styleD =  {color:'#666', opacity: 1.0, fillOpacity: 0.3, weight: 1, clickable: true};//#38a9dc', opacity: 0.0, fillOpacity: 0.1, weight: 1, clickable: true};
         var styleDA =  {color:'#666', opacity: 1.0, fillOpacity: 0.0, weight: 1, clickable: true};//#38a9dc', opacity: 0.0, fillOpacity: 0.1, weight: 1, clickable: true};
-        var styleZ =  {color:'#d53e2a', opacity: 1.0, fillOpacity: 0.8, weight: 2, clickable: true};
-        var styleE =  {color:'#f2952f', opacity: 1.0, fillOpacity: 0.6, weight: 1, clickable: true};
+        var styleZ =  {color:'#ff0000', opacity: 1.0, fillOpacity: 0.7, weight: 1, clickable: true};
+        var styleE =  {color:'#ffff00', opacity: 1.0, fillOpacity: 0.6, weight: 1, clickable: true};
+	var styleF =  {fillColor:'#666', color:'#ff0000', opacity: 1.0, fillOpacity: 0.3, weight: 2, dashArray: '5', clickable: true};
+	var style2F =  {fillColor:'#666', color:'#666', opacity: 1.0, fillOpacity: 0.0, weight: 2, dashArray: '5', clickable: true};
+	var stylePF =  {fillColor:'#008000', color:'#ff0000',  opacity: 1.0, fillOpacity: 0.5, weight: 2, dashArray: '5', clickable: true};
+	var styleMF =  {fillColor:'#da70d6', color:'#ff0000', opacity: 1.0, fillOpacity: 0.5, weight: 2, dashArray: '5', clickable: true};
+	var styleCF =  {fillColor:'#ffa07a', color:'#ff0000', opacity: 1.0, fillOpacity: 0.5, weight: 2, dashArray: '5', clickable: true};
+	var styleEF =  {fillColor:'#ffff00', color:'#ff0000', opacity: 1.0, fillOpacity: 0.6, weight: 2, dashArray: '5', clickable: true};
+	var styleZF =  {fillColor:'#ff0000', color:'#ff0000', opacity: 1.0, fillOpacity: 0.7, weight: 2, dashArray: '5', clickable: true};
+        
+	var style_avec =    {fillColor:false,color:'OrangeRed ', opacity: 1.0, weight: 2, clickable: true, fillOpacity:0};
+	var style_sans =    {fillColor:false,color:'lime', opacity: 1.0, weight: 2, dashArray: '5',clickable: true, fillOpacity:0};    
+	
+	var customOptions =
+	        {
+	        'maxWidth': '400',
+					'maxHeight': '400',
+	        'className' : 'custom'
+	        }
+	
+	var customOptionsF =
+	        {
+	        'maxWidth': '500',
+					'maxHeight': '400',
+	        'className' : 'custom'
+	        }
 	L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';// '⌘';
-	L.Control.fileLayerLoad({
+	var control = new L.Control.fileLayerLoad({
             layer: L.geoJson,
-            fileSizeLimit: 8192,
+            fileSizeLimit: 256000,
             fitBounds: true,
             layerOptions: {
               pointToLayer: function(feature, latlng) {
-                if (feature.properties.PCM == "P"){
-                       return L.marker(latlng, {icon: PIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+               if (feature.properties.PCM == "P"){
+                       return L.marker(latlng, {icon: PIcon}).bindPopup(feature['properties']['Description'],customOptions)
                    }
                 else if (feature.properties.PCM == "C"){
-                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],customOptions)
                    }
                 else if (feature.properties.PCM == "M"){
-                  return L.marker(latlng, {icon: MIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                  return L.marker(latlng, {icon: MIcon}).bindPopup(feature['properties']['Description'],customOptions)
                   }
                 else if (feature.properties.PCM == "2"){
-                  return L.marker(latlng, {icon: DIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                  return L.marker(latlng, {icon: DIcon}).bindPopup(feature['properties']['Description'],customOptions)
                   }
                 else if (feature.properties.PCM == "2A"){
-                  return L.marker(latlng, {icon: DAIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                  return L.marker(latlng, {icon: DAIcon}).bindPopup(feature['properties']['Description'],customOptions)
                   }
                 else if (feature.properties.PCM == "Z"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptions)
                   }
                  else if (feature.properties.PCM == "E"){
-                   return L.marker(latlng, {icon: EIcon}).bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350})
+                   return L.marker(latlng, {icon: EIcon}).bindPopup(feature['properties']['Description'],customOptions)
+                  }
+		 else if (feature.properties.PCM == "F"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+		 else if (feature.properties.PCM == "2F"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+		 else if (feature.properties.PCM == "PF"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+		 else if (feature.properties.PCM == "MF"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+		 else if (feature.properties.PCM == "CF"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+		 else if (feature.properties.PCM == "EF"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+		 else if (feature.properties.PCM == "ZF"){
+                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
+                  }
+		else if (feature.properties.PCM == "2AF"){
+                  return L.marker(latlng, {icon: DAIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
                   }
                 },
+
                 onEachFeature: function (feature, layer) {
                   layer.on('mouseover', function highlightFeature(e) {
                     var layer = e.target;
                     if (feature.geometry.type !="Point"){
+						if (feature.properties.PCM =='sans' ||feature.properties.PCM =='avec'){ 
                       layer.setStyle({
                         weight: 4,
                         //color: '#666',
                         //dashArray: '',
-                        fillOpacity: 0.8
+                        fillOpacity: 0
                       });
-                      }    
-                    }
+                      }
+					  else{layer.setStyle({
+                        weight: 4,
+                        //color: '#666',
+                        //dashArray: '',
+                        fillOpacity: 0.8
+                      });}
+                    }}
                   );
                   layer.on('mouseout', function resetHighlight(e) {
                     var layer = e.target;
@@ -161,10 +327,53 @@
                     else if (feature.properties.PCM == "E" && feature.geometry.type !="Point"){
                       layer.setStyle(styleE);
                     }
+		    else if (feature.properties.PCM == "F" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleF);
+                    }
+		    else if (feature.properties.PCM == "2F" && feature.geometry.type !="Point"){
+                      layer.setStyle(style2F);
+                    }
+		    else if (feature.properties.PCM == "PF" && feature.geometry.type !="Point"){
+                      layer.setStyle(stylePF);
+                    }
+		    else if (feature.properties.PCM == "MF" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleMF);
+                    }
+		    else if (feature.properties.PCM == "CF" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleCF);
+                    }
+		    else if (feature.properties.PCM == "EF" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleEF);
+                    }
+		    else if (feature.properties.PCM == "ZF" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleZF);
+		    }
+			else if (feature.properties.PCM == "ZF" && feature.geometry.type !="Point"){
+                      layer.setStyle(style2F);
+		    }
+			else if (feature.properties.PCM == "2AF" && feature.geometry.type !="Point"){
+                      layer.setStyle(styleZF);
+		    }
+		   else if (feature.properties.PCM == "sans" && feature.geometry.type =="MultiLineString"){
+                      layer.setStyle(style_sans);
+                    }
+			else if (feature.properties.PCM == "avec" && feature.geometry.type =="MultiLineString"){
+			  layer.setStyle(style_avec);
+		    }
+			
+			else if (feature.properties.PCM == "sans" && feature.geometry.type =="MultiPolygon"){
+                      layer.setStyle(style_sans);
+                    }
+			else if (feature.properties.PCM == "avec" && feature.geometry.type =="MultiPolygon"){
+			  layer.setStyle(style_avec);
+		    }
                   }
                 );
-                  if (feature.properties) {
-                      layer.bindPopup(feature['properties']['Description'],{maxWidth: 200, maxHeight: 350});
+		if (feature.properties.PCM in {"P":"P","C":"P","M":"P","2":"P","2A":"P","Z":"P","E":"P","sans":"P","avec":"P"} ) {
+                      layer.bindPopup(feature['properties']['Description'],customOptions);
+                  }
+				  else if (feature.properties.PCM in {"2F":"P","F":"P","PF":"P","MF":"P","CF":"P","EF":"P","ZF":"P","2AF":"P"} ) {
+                      layer.bindPopup(feature['properties']['Description'],customOptionsF);
                   }
                 },
                 style: function(feature){
@@ -176,57 +385,172 @@
                    case '2A': return styleDA;
                    case 'Z': return styleZ;
                    case 'E': return styleE;
-                   }
+		   case 'F': return styleF;
+		   case '2F': return style2F;
+		   case 'PF': return stylePF;
+		   case 'CF': return styleCF;
+		   case 'MF': return styleMF;
+		   case 'EF': return styleEF;
+		   case 'ZF': return styleZF;
+		   case '2AF': return styleDA;
+                   case 'sans': return style_sans;
+                   case 'avec': return style_avec;
+                                      }
                 }
+
               }
             }
            ).addTo(map);
+	   
+           control.loader.on('data:loaded', function (e) {
+             // Remove old control, if any
+             if (window.searchControl)
+             {
+               map.removeControl(window.searchControl);
+             }
+
+             // Add search gadget for this layer
+             window.searchControl= new L.control.search({
+               layer: e.layer,
+               propertyName: 'rec',
+               initial: false,
+               textErr: 'Parcelle non trouvée',	//error message
+            		textCancel: 'Annuler',		    //title in cancel button
+            		textPlaceholder: 'Rechercher une parcelle...',
+               minLength: 0,					//minimal text length for autocomplete
+            		casesensitive: false,			//search elements in case sensitive text
+            		autoType: true,
+               firstTipSubmit: true,			//auto select first result con enter click
+     		      autoResize: true,
+               tooltipLimit: 5,
+               moveToLocation: function(latlng, title, map) {
+         			//map.fitBounds( latlng.layer.getBounds() );
+         			var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+           			map.setView(latlng, zoom); // access the zoom
+         		}
+            });
+
+             map.addControl(window.searchControl);
+	     var legend = L.control({position: 'bottomright'});
+	       legend.onAdd = function (map) {
+
+          var div = L.DomUtil.create('div', 'info legend'),
+          couleurs = ['#008000', '#ffa07a', '#da70d6', '#666','#ffff00','#ff0000'],
+          valeurs = ['Privé', 'Concédé', 'Mixte', 'Tiers','Écart','Absence'],
+          labels = ['<strong>Légende:</strong>']
+
+
+
+          for (var i = 0; i < couleurs.length; i++) {
+                 col = couleurs [i];
+                vf=valeurs [i];
+            labels.push(
+                '<i style="background:' + col + '"></i> ' + vf );
+                }
+                div.innerHTML = labels.join('<br>');
+                return div;
+                };
+	  if (!(map.legenddisplay)) {
+          legend.addTo(map);
+          map.legenddisplay = this;}
+
+
+
+           });
+           
+	//map.on('baselayerchange',function(eo)
+	//  {
+	//   if( eo.name == "OSM Sombre" &&  map.hasLayer(ign_parcelaire)) {
+	//     map.removeLayer(ign_parcelaire);
+	//	 map.addLayer(ign_parcelaire_o);
+	//   }
+	// })	
 	
+	 map.on('zoomend',function(e){
+		 zoomlev=map.getZoom();
+		 if (zoomlev<14){
+	     ign_scan.setOpacity(1);
+	     ign_ortho.setOpacity(1);
+	     osm.setOpacity(1);
+	     //osm_light.setOpacity(1);
+	     Topo.setOpacity(1);}
 	 
+	       else{if (map.hasLayer(ign_parcelaire)){
+	     ign_scan.setOpacity(0.5);
+	     ign_ortho.setOpacity(0.5);
+	     osm.setOpacity(0.5);
+	     //osm_light.setOpacity(0.8);
+	     Topo.setOpacity(0.5);
+	     //ign_lim.addTo(map);
+	     }
+	    }
+	 }
+	 )
+	  
 	 map.on('overlayadd', function(eo)
 	  {
 	   if( eo.name == 'Parcelaire IGN' ) {
 	     ign_scan.setOpacity(0.5);
 	     ign_ortho.setOpacity(0.5);
-	     osm.setOpacity(0.7);
-	     Topo.setOpacity(0.6);
+	     osm.setOpacity(0.5);
+	     //osm_light.setOpacity(0.8);
+	     Topo.setOpacity(0.5);
 	     //ign_lim.addTo(map);
 	   }
 	 })
+	    
 	map.on('overlayremove', function(eo)
 	 {
-	   if( eo.name == 'Parcelaire IGN' ) {
+	   if( eo.name == 'Parcelaire IGN' &&  !(map.hasLayer(geofoncier_sommets))) {
 	     ign_scan.setOpacity(1);
 	     ign_ortho.setOpacity(1);
 	     osm.setOpacity(1);
+	     //osm_light.setOpacity(1);
 	     Topo.setOpacity(1);
 	     //map.removeLayer(ign_lim)(map);
 	   }
 	})
+	    
+	map.on('overlayadd', function(eo)
+        {
+          if( eo.name == 'Limites adm.' ) {
+            map.addLayer(ign_noms)
+          }
+        })
+	map.on('overlayremove', function(eo)
+        {
+          if( eo.name == 'Limites adm.' ) {
+            map.removeLayer(ign_noms)
+          }
+        })   
 	map.on('overlayadd', function(eo)
         {
           if( eo.name == 'GeoFoncier' ) {
             geofoncier_limites.setOpacity(1),
 	     ign_scan.setOpacity(0.5);
 	     ign_ortho.setOpacity(0.5);
-	     osm.setOpacity(0.7);
-	     Topo.setOpacity(0.6)
-          }
-          else {
-            geofoncier_limites.setOpacity(0);
+	     osm.setOpacity(0.5);
+	     //osm_light.setOpacity(0.8);
+	     Topo.setOpacity(0.5)
           }
         })
         map.on('overlayremove', function(eo)
         {
-          if( eo.name == 'GeoFoncier' ) {
-            geofoncier_limites.setOpacity(0),
+          if( eo.name == 'GeoFoncier'  &&  !(map.hasLayer(ign_parcelaire))) {
+            geofoncier_limites.setOpacity(0);
 	     ign_scan.setOpacity(1);
 	     ign_ortho.setOpacity(1);
 	     osm.setOpacity(1);
+	     //osm_light.setOpacity(1);
 	     Topo.setOpacity(1);
           }
+	  if( eo.name == 'GeoFoncier'  &&  map.hasLayer(ign_parcelaire)) {
+            geofoncier_limites.setOpacity(0);
+	   
+          }
        })
-	
+
+
 	L.control.scale({imperial: false}).addTo(map);
 	
 	new L.Control.GeoSearch({
@@ -235,13 +559,136 @@
 	    showMarker: true,
 	    retainZoomLevel: false,
 	    }).addTo(map);
-	      L.control.locate({drawCircle: true,
-	      	position: 'topleft',
-	      	strings: {
-			title: "Se localiser"
-			}
-	         }).addTo(map);
-    	 
+	    
+	 var lc = L.control.locate({
+    	     position: 'topleft',
+             flyTo : true,
+	     locateOptions: {
+               enableHighAccuracy: true,
+	       maxZoom: 18,
+             },
+             strings: {
+             title: "Se localiser"
+             }
+             }).addTo(map);
+
+			  // define toolbar options
+var optionspm = {
+    position: 'bottomleft', // toolbar position, options are 'topleft', 'topright', 'bottomleft', 'bottomright'
+    drawMarker: true,  // adds button to draw markers
+    drawPolygon: true,  // adds button to draw a polygon
+    drawPolyline: true,  // adds button to draw a polyline
+    drawCircle: true,  // adds button to draw a cricle
+    editPolygon: true,  // adds button to toggle global edit mode
+    deleteLayer: true   // adds a button to delete layers
+};
+
+// add leaflet.pm controls to the map
+map.pm.addControls(optionspm);
+
+function downloadURI(uri, name) {
+  var link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  delete link;
+}
+
+
+function redirect(geom)
+{
+var timestamp = showTime();
+    window.location.href = "mailto:emmanuel.amador@edf.fr?subject=Nouvelle géométrie "+"("+timestamp+")"+"&body="+geom;
+}
+
+
+
+const myLayerGroup = L.layerGroup([]);
+map.on('pm:create', (e) => {
+  
+  var nom = prompt("Entrer un nom", "...");
+  e.layer.bindTooltip("<span style='font-size:16px'><b>"+nom+"</b></span>");
+  
+  var feature = e.layer.feature = e.layer.feature || {};
+	feature.type = "Feature";
+	feature.properties = feature.properties || {};
+	feature.properties["Nom"] = nom;
+	feature.properties["created"]=showTime();
+	console.log(e.shape)
+	if (e.shape==="Circle"){
+	var rad = e.layer.getRadius();
+	feature.properties["radius"] = rad;
+	}
+  myLayerGroup.addLayer(e.layer);
+  console.log(myLayerGroup);
+});
+
+
+        // on click, clear all layers 
+        document.getElementById('delete').onclick = function(e) {
+            myLayerGroup.clearLayers();
+        }
+
+        document.getElementById('export').onclick = function(e) {
+            // Extract GeoJson from featureGroup 
+           var data_drawn = myLayerGroup.toGeoJSON();
+			//var data_drawn =map.pm.Draw.getShapes();
+            // Stringify the GeoJson 
+            var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data_drawn));
+
+            <!-- // Create export -->
+            document.getElementById('export').setAttribute('href', 'data:' + convertedData);
+            document.getElementById('export').setAttribute('download','data.geojson'); 
+        } 
+function showTime() {
+Date.prototype.toIsoString = function() {
+    var tzo = -this.getTimezoneOffset(),
+        dif = tzo >= 0 ? '+' : '-',
+        pad = function(num) {
+            var norm = Math.floor(Math.abs(num));
+            return (norm < 10 ? '0' : '') + norm;
+        };
+    return this.getFullYear() +
+        '-' + pad(this.getMonth() + 1) +
+        '-' + pad(this.getDate()) +
+        'T' + pad(this.getHours()) +
+        ':' + pad(this.getMinutes()) +
+        ':' + pad(this.getSeconds()) +
+        dif + pad(tzo / 60) +
+        ':' + pad(tzo % 60);
+}
+
+var dt = new Date();
+return dt.toIsoString().substring(0, 19);
+}
+
+L.easyButton( 'fa-at', function(e){
+		
+		var data_drawn = myLayerGroup.toGeoJSON();
+			//var data_drawn =map.pm.Draw.getShapes();
+            // Stringify the GeoJson 
+            <!-- // Create export -->
+			
+			redirect(encodeURIComponent(JSON.stringify(data_drawn)));//downloadURI(convertedData, "Geom.geojson");
+            //document.getElementById('export').setAttribute('href', 'data:' + convertedData);
+            //document.getElementById('export').setAttribute('download','data.geojson'); 
+		
+		}).addTo(map);
+		
+L.easyButton( 'fa-download', function(e){
+		
+		var data_drawn = myLayerGroup.toGeoJSON();
+			//var data_drawn =map.pm.Draw.getShapes();
+            // Stringify the GeoJson 
+			var timestamp=showTime();
+            var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data_drawn));
+			downloadURI('data:' + convertedData, "Geom"+timestamp+".geojson"); 
+		
+		}).addTo(map);
+  
+
     </script>
 </body>
 </html>
