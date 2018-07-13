@@ -72,7 +72,7 @@
 </head>
 <body>
     <div id="map"></div>
-	<div id='delete'>Delete Features</div>
+	<div id='delete'></div>
 	<a href='#' id='export'></a>
     <script type="text/javascript">
     var CLE_IGN = "waueelcut14w654dbkpq8coh";
@@ -590,10 +590,12 @@ function downloadURI(uri, name) {
   var link = document.createElement("a");
   link.download = name;
   link.href = uri;
+  link.target="_blank";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
   delete link;
+  console.log(link);
 }
 
 
