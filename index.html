@@ -657,10 +657,10 @@ Date.prototype.toIsoString = function() {
         '-' + pad(this.getMonth() + 1) +
         '-' + pad(this.getDate()) +
         'T' + pad(this.getHours()) +
-        ':' + pad(this.getMinutes()) +
-        ':' + pad(this.getSeconds()) +
+        '-' + pad(this.getMinutes()) +
+        '-' + pad(this.getSeconds()) +
         dif + pad(tzo / 60) +
-        ':' + pad(tzo % 60);
+        '-' + pad(tzo % 60);
 }
 
 var dt = new Date();
