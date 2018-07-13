@@ -683,7 +683,7 @@ L.easyButton( 'fa-download', function(e){
 			//var data_drawn =map.pm.Draw.getShapes();
             // Stringify the GeoJson 
 			var timestamp=showTime();
-            var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data_drawn));
+            var convertedData = 'application/force-download;charset=utf-8,' + encodeURIComponent(JSON.stringify(data_drawn));
 			downloadURI('data:' + convertedData, "Geom"+timestamp+".geojson"); 
 		
 		}).addTo(map);
