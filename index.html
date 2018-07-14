@@ -589,6 +589,54 @@ var optionspm = {
 // add leaflet.pm controls to the map
 map.pm.addControls(optionspm);
 
+	    
+// optional options for line style during draw. These are the defaults
+var options = {
+    // snapping
+    snappable: true,
+    snapDistance: 50,
+
+    // self intersection
+    allowSelfIntersection: true,
+
+    // the lines between coordinates/markers
+    templineStyle: {
+        color: 'red',
+    },
+
+    // the line from the last marker to the mouse cursor
+    hintlineStyle: {
+        color: 'red',
+        dashArray: [5, 5],
+    },
+
+    // show a marker at the cursor
+    cursorMarker: false,
+
+    // finish drawing on double click
+    // DEPRECATED: use finishOn: 'dblclick' instead
+    finishOnDoubleClick: false,
+
+    // specify type of layer event to finish the drawn shape
+    // example events: 'mouseout', 'dblclick', 'contextmenu'
+    // List: http://leafletjs.com/reference-1.2.0.html#interactive-layer-click
+    finishOn: 'contextmenu',
+
+    // custom marker style (only for Marker draw)
+    markerStyle: {
+        opacity: 0.5,
+        draggable: true,
+    },
+};
+
+// enable drawing mode for shape - e.g. Poly, Line, etc
+map.pm.enableDraw('Poly', options);
+//map.pm.enableDraw('Rectangle', options);
+map.pm.enableDraw('Line', options);
+map.pm.enableDraw('Marker', options);
+map.pm.enableDraw('Circle', options);
+	    
+	    
 function downloadURI(uri, name) {
   var link = document.createElement("a");
   link.download = name;
