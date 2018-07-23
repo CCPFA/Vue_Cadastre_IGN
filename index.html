@@ -7,8 +7,9 @@
     <!--<script src="https://use.fontawesome.com/9193c58103.js"></script>-->
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' rel='stylesheet' />
     <link href='https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css' rel='stylesheet' />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@latest/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+	<script type="text/javascript"  src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+	<script type="text/javascript"  src="https://unpkg.com/leaflet.vectorgrid@1.3.0"></script>
     <script src="./src/js/leaflet.filelayer.js"></script>
     <script src="./src/js/togeojson.js"></script>
     <script src="./src/js/leaflet.edgebuffer.js"></script>
@@ -22,7 +23,7 @@
     <script src="./src/js/l.geosearch.provider.openstreetmap.js"></script>
     <link rel="stylesheet" href="./src/css/l.geosearch.css" />
     <link rel="stylesheet" href="./src/leaflet-search.css" />
-    <script src="./src/leaflet-search.js"></script>
+    <script src="./src/leaflet-searchc.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js"></script>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.pm@latest/dist/leaflet.pm.css" />
@@ -233,205 +234,124 @@
 	        }
 	L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';// '⌘';
 	var control = new L.Control.fileLayerLoad({
-            layer: L.geoJson,
             fileSizeLimit: 256000,
-            fitBounds: true,
-            layerOptions: {
-              pointToLayer: function(feature, latlng) {
-               if (feature.properties.PCM == "P"){
-                       return L.marker(latlng, {icon: PIcon}).bindPopup(feature['properties']['Description'],customOptions)
-                   }
-                else if (feature.properties.PCM == "C"){
-                  return L.marker(latlng, {icon: CIcon}).bindPopup(feature['properties']['Description'],customOptions)
-                   }
-                else if (feature.properties.PCM == "M"){
-                  return L.marker(latlng, {icon: MIcon}).bindPopup(feature['properties']['Description'],customOptions)
-                  }
-                else if (feature.properties.PCM == "2"){
-                  return L.marker(latlng, {icon: DIcon}).bindPopup(feature['properties']['Description'],customOptions)
-                  }
-                else if (feature.properties.PCM == "2A"){
-                  return L.marker(latlng, {icon: DAIcon}).bindPopup(feature['properties']['Description'],customOptions)
-                  }
-                else if (feature.properties.PCM == "Z"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptions)
-                  }
-                 else if (feature.properties.PCM == "E"){
-                   return L.marker(latlng, {icon: EIcon}).bindPopup(feature['properties']['Description'],customOptions)
-                  }
-		 else if (feature.properties.PCM == "F"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
-                  }
-		 else if (feature.properties.PCM == "2F"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
-                  }
-		 else if (feature.properties.PCM == "PF"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
-                  }
-		 else if (feature.properties.PCM == "MF"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
-                  }
-		 else if (feature.properties.PCM == "CF"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
-                  }
-		 else if (feature.properties.PCM == "EF"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
-                  }
-		 else if (feature.properties.PCM == "ZF"){
-                  return L.marker(latlng, {icon: ZIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
-                  }
-		else if (feature.properties.PCM == "2AF"){
-                  return L.marker(latlng, {icon: DAIcon}).bindPopup(feature['properties']['Description'],customOptionsF)
-                  }
-                },
 
-                onEachFeature: function (feature, layer) {
-                  layer.on('mouseover', function highlightFeature(e) {
-                    var layer = e.target;
-                    if (feature.geometry.type !="Point"){
-						if (feature.properties.PCM =='sans' ||feature.properties.PCM =='avec'){ 
-                      layer.setStyle({
-                        weight: 4,
-                        //color: '#666',
-                        //dashArray: '',
-                        fillOpacity: 0
-                      });
-                      }
-					  else{layer.setStyle({
-                        weight: 4,
-                        //color: '#666',
-                        //dashArray: '',
-                        fillOpacity: 0.8
-                      });}
-                    }}
-                  );
-                  layer.on('mouseout', function resetHighlight(e) {
-                    var layer = e.target;
-                    if (feature.properties.PCM == "P" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleP);
-                    }
-                    else if (feature.properties.PCM == "C" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleC);
-                    }
-                    else if (feature.properties.PCM == "M" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleM);
-                    }
-                    else if (feature.properties.PCM == "2" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleD);
-                    }
-                    else if (feature.properties.PCM == "2A" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleDA);
-                    }
-                    else if (feature.properties.PCM == "Z" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleZ);
-                    }
-                    else if (feature.properties.PCM == "E" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleE);
-                    }
-		    else if (feature.properties.PCM == "F" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleF);
-                    }
-		    else if (feature.properties.PCM == "2F" && feature.geometry.type !="Point"){
-                      layer.setStyle(style2F);
-                    }
-		    else if (feature.properties.PCM == "PF" && feature.geometry.type !="Point"){
-                      layer.setStyle(stylePF);
-                    }
-		    else if (feature.properties.PCM == "MF" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleMF);
-                    }
-		    else if (feature.properties.PCM == "CF" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleCF);
-                    }
-		    else if (feature.properties.PCM == "EF" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleEF);
-                    }
-		    else if (feature.properties.PCM == "ZF" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleZF);
-		    }
-			else if (feature.properties.PCM == "ZF" && feature.geometry.type !="Point"){
-                      layer.setStyle(style2F);
-		    }
-			else if (feature.properties.PCM == "2AF" && feature.geometry.type !="Point"){
-                      layer.setStyle(styleZF);
-		    }
-		   else if (feature.properties.PCM == "sans" && feature.geometry.type =="MultiLineString"){
-                      layer.setStyle(style_sans);
-                    }
-			else if (feature.properties.PCM == "avec" && feature.geometry.type =="MultiLineString"){
-			  layer.setStyle(style_avec);
-		    }
-			
-			else if (feature.properties.PCM == "sans" && feature.geometry.type =="MultiPolygon"){
-                      layer.setStyle(style_sans);
-                    }
-			else if (feature.properties.PCM == "avec" && feature.geometry.type =="MultiPolygon"){
-			  layer.setStyle(style_avec);
-		    }
-                  }
-                );
-		if (feature.properties.PCM in {"P":"P","C":"P","M":"P","2":"P","2A":"P","Z":"P","E":"P","sans":"P","avec":"P"} ) {
-                      layer.bindPopup(feature['properties']['Description'],customOptions);
-                  }
-				  else if (feature.properties.PCM in {"2F":"P","F":"P","PF":"P","MF":"P","CF":"P","EF":"P","ZF":"P","2AF":"P"} ) {
-                      layer.bindPopup(feature['properties']['Description'],customOptionsF);
-                  }
-                },
-                style: function(feature){
-                 switch (feature['properties']['PCM']){
-                   case 'P': return styleP;
-                   case 'C': return styleC;
-                   case 'M': return styleM;
-                   case '2': return styleD;
-                   case '2A': return styleDA;
-                   case 'Z': return styleZ;
-                   case 'E': return styleE;
-		   case 'F': return styleF;
-		   case '2F': return style2F;
-		   case 'PF': return stylePF;
-		   case 'CF': return styleCF;
-		   case 'MF': return styleMF;
-		   case 'EF': return styleEF;
-		   case 'ZF': return styleZF;
-		   case '2AF': return styleDA;
-                   case 'sans': return style_sans;
-                   case 'avec': return style_avec;
-                                      }
-                }
+			}
 
-              }
-            }
            ).addTo(map);
 	   
+	   
+
            control.loader.on('data:loaded', function (e) {
-             // Remove old control, if any
-             if (window.searchControl)
+		   var highlight;
+			var clearHighlight = function() {
+				if (highlight) {
+					vg_parcelles.resetFeatureStyle(highlight);
+				}
+				highlight = null;
+			};
+			data=JSON.parse(e.result);
+			
+			var vg_parcelles = L.vectorGrid.slicer( data, {
+				rendererFactory: L.canvas.tile,
+				attribution: 'CC-PFA',
+				maxZoom: 22,
+				zIndex:150,			// max zoom to preserve detail on
+				tolerance: 5, // simplification tolerance (higher means simpler)
+				extent: 1024, // tile extent (both width and height)
+				buffer: 64,   // tile buffer on each side
+				debug: 0,      // logging level (0 to disable, 1 or 2)
+				vectorTileLayerStyles: {
+					sliced: function(properties, zoom) {
+						var p = properties.PCM;
+						return {
+							fillColor: 	(p === "P" ||p==="PF" )? '#008000' :
+										(p === "C"|| p === "CF")? '#ffa07a' :
+										(p === "M"|| p === "MF")? '#da70d6' :
+										(p === "E"|| p === "EF")? '#ffff00' :
+										(p ==="ZF"|| p==='Z')? '#ff0000' :'#666',
+
+							fillOpacity:	(p==='PF'||p ==='CF'||p ==='MF'||p ==='2F'||p==='P'||p ==='C'||p ==='M'||p ==='2') ? 0.5 :
+											(p ==="ZF"||p ==="EF"||p ==="E"||p ==="Z") ? 0.7 :0,
+							stroke: true,
+							fill: true,
+							dashArray: (p==='EF'||p ==='ZF')||(p==='PF'||p ==='CF'||p ==='MF'||p ==='2F'||p ==='2AF')? '3':'0',
+									
+							color: 	(p==='EF'||p ==='ZF'||p==='Z')||(p==='PF'||p ==='CF'||p ==='MF'||p ==='2F')? '#ff0000':
+									(p ==='E')? '#ffff00':'#666',
+									
+ 							opacity: 1,
+							weight: 1,
+						}
+					}
+				},
+				interactive: true,
+				getFeatureId: function(p) {
+					return p.properties.id;
+				}
+			})
+			.on('mouseover', function(e) {
+				var properties = e.layer.properties;
+				clearHighlight();
+				highlight = properties.id;
+				var p = properties.PCM;
+				var style = {
+							fillColor: 	(p === "P" ||p==="PF" )? '#008000' :
+										(p === "C"|| p === "CF")? '#ffa07a' :
+										(p === "M"|| p === "MF")? '#da70d6' :
+										(p === "E"|| p === "EF")? '#ffff00' :
+										(p ==="ZF"|| p==='Z')? '#ff0000' :'#666',
+
+							fillOpacity:	1,
+							stroke: true,
+							fill: true,
+							dashArray: (p==='EF'||p ==='ZF')||(p==='PF'||p ==='CF'||p ==='MF'||p ==='2F'||p ==='2AF')? '3':'0',
+									
+							color: 'deepskyblue',
+									
+ 							opacity: 1,
+							weight: 2,
+				};
+
+			vg_parcelles.setFeatureStyle(properties.id, style);
+		})
+		.on('click', function(e) {
+			var properties = e.layer.properties;
+			L.popup()
+				.setContent(properties.Description)
+				.setLatLng(e.latlng)
+				.openOn(map);
+				}).addTo(map);
+				
+		 // Remove old control, if any
+		 if (window.searchControl)
              {
                map.removeControl(window.searchControl);
              }
-
+		console.log(data);
              // Add search gadget for this layer
-             window.searchControl= new L.control.search({
-               layer: e.layer,
-               propertyName: 'rec',
-               initial: false,
-               textErr: 'Parcelle non trouvée',	//error message
-            		textCancel: 'Annuler',		    //title in cancel button
-            		textPlaceholder: 'Rechercher une parcelle...',
-               minLength: 0,					//minimal text length for autocomplete
-            		casesensitive: false,			//search elements in case sensitive text
-            		autoType: true,
-               firstTipSubmit: true,			//auto select first result con enter click
-     		      autoResize: true,
-               tooltipLimit: 5,
-               moveToLocation: function(latlng, title, map) {
-         			//map.fitBounds( latlng.layer.getBounds() );
-         			var zoom = map.getBoundsZoom(latlng.layer.getBounds());
-           			map.setView(latlng, zoom); // access the zoom
-         		}
+		var s_parcelles = L.geoJSON(data); 
+		window.searchControl = new L.Control.Search({
+			layer: s_parcelles,
+			propertyName: 'rec',
+		   initial: false,
+		   textErr: 'Parcelle non trouvée',	//error message
+			textCancel: 'Annuler',		    //title in cancel button
+			textPlaceholder: 'Rechercher une parcelle...',
+		   minLength: 0,					//minimal text length for autocomplete
+			casesensitive: false,			//search elements in case sensitive text
+			autoType: true,
+		   firstTipSubmit: true,			//auto select first result con enter click
+			  autoResize: true,
+		   tooltipLimit: 5,
+		   moveToLocation: function(latlng, title, map) {
+			var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+			map.setView(latlng, zoom); // access the zoom
+			}
             });
-
+			map.fitBounds(s_parcelles.getBounds());
              map.addControl(window.searchControl);
+			 
 	     var legend = L.control({position: 'bottomright'});
 	       legend.onAdd = function (map) {
 

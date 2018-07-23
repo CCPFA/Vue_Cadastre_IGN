@@ -72,7 +72,7 @@
                 try {
                     this.fire('data:loading', { filename: file.name, format: ext });
                     var layer = parser.call(this, e.target.result, ext);
-                    this.fire('data:loaded', { layer: layer, filename: file.name, format: ext });
+                    this.fire('data:loaded', { filename: file.name, format: ext, result: e.target.result });
                 } catch (err) {
                     this.fire('data:error', { error: err });
                 }
@@ -93,7 +93,7 @@
             }
 
             if (this.options.addToMap) {
-                layer.addTo(this._map);
+                //layer.addTo(this._map);
             }
             return layer;
         },
@@ -135,7 +135,7 @@
                 // Fit bounds after loading
                 if (this.options.fitBounds) {
                     window.setTimeout(function () {
-                        map.fitBounds(e.layer.getBounds());
+                        //map.fitBounds(e.layer.getBounds());
                     }, 500);
                 }
             }, this);
