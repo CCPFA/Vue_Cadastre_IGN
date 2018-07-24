@@ -634,7 +634,7 @@ var dt = new Date();
 return dt.toIsoString().substring(0, 19);
 }
 
-L.easyButton( 'fa-at', function(e){
+L.easyButton( 'fa fa-paper-plane', function(e){
 		
 		var data_drawn = myLayerGroup.toGeoJSON();
 			//var data_drawn =map.pm.Draw.getShapes();
@@ -647,16 +647,16 @@ L.easyButton( 'fa-at', function(e){
 		
 		}).addTo(map);
 		
-L.easyButton( 'fa-download', function(e){
+//L.easyButton( 'fa-download', function(e){
 		
-		var data_drawn = myLayerGroup.toGeoJSON();
-			//var data_drawn =map.pm.Draw.getShapes();
-            // Stringify the GeoJson 
-			var timestamp=showTime().replace(':','_');
-            var convertedData = 'application/force-download;charset=utf-8,' + encodeURIComponent(JSON.stringify(data_drawn));
-			downloadURI('data:' + convertedData, "Geom"+timestamp+".geojson"); 
+//		var data_drawn = myLayerGroup.toGeoJSON();
+//			//var data_drawn =map.pm.Draw.getShapes();
+//            // Stringify the GeoJson 
+//			var timestamp=showTime().replace(':','_');
+//            var convertedData = 'application/force-download;charset=utf-8,' + encodeURIComponent(JSON.stringify(data_drawn));
+//			downloadURI('data:' + convertedData, "Geom"+timestamp+".geojson"); 
 		
-		}).addTo(map);
+//		}).addTo(map);
   
 
     </script>
