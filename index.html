@@ -634,7 +634,7 @@ var dt = new Date();
 return dt.toIsoString().substring(0, 19);
 }
 
-L.easyButton( 'fa fa-paper-plane',options:{position:'bottomleft'}, function(e){
+L.easyButton( 'fa fa-paper-plane', function(e){
 		
 		var data_drawn = myLayerGroup.toGeoJSON();
 			//var data_drawn =map.pm.Draw.getShapes();
@@ -645,7 +645,7 @@ L.easyButton( 'fa fa-paper-plane',options:{position:'bottomleft'}, function(e){
             //document.getElementById('export').setAttribute('href', 'data:' + convertedData);
             //document.getElementById('export').setAttribute('download','data.geojson'); 
 		
-		}).addTo(map);
+		},position:'bottomleft').addTo(map);
 		
 //L.easyButton( 'fa-download', function(e){
 		
