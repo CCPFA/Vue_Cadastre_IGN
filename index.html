@@ -197,19 +197,30 @@
 	var style_avec =    {fillColor:false,color:'OrangeRed ', opacity: 1.0, weight: 2, clickable: true, fillOpacity:0};
 	var style_sans =    {fillColor:false,color:'lime', opacity: 1.0, weight: 2, dashArray: '5',clickable: true, fillOpacity:0};    
 	
+	var w = window,
+	d = document,
+	e = d.documentElement,
+	g = d.getElementsByTagName('body')[0],
+	x = w.innerWidth || e.clientWidth || g.clientWidth,
+	y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+	
+	popupwidth=Math.round(x/4)
+	popupheight=Math.round(y/3)
+	
 	var customOptions =
 	        {
-	        'maxWidth': '400',
-					'maxHeight': '400',
+	        'maxWidth': popupwidth.toString(),
+					'maxHeight': popupheight.toString(),
 	        'className' : 'custom'
 	        }
 	
 	var customOptionsF =
 	        {
-	        'maxWidth': '500',
-					'maxHeight': '400',
+	        'maxWidth': (popupwidth*1.5).toString(),
+					'maxHeight': popupheight.toString(),
 	        'className' : 'custom'
 	        }
+	
 	L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';// '⌘';
 	var control = new L.Control.fileLayerLoad({
             fileSizeLimit: 256000,
