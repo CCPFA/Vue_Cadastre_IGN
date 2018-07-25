@@ -471,12 +471,12 @@
 
 	L.control.scale({imperial: false}).addTo(map);
 	
-	new L.Control.GeoSearch({
-	  provider: new L.GeoSearch.Provider.OpenStreetMap(),
-	    position: 'topleft',
-	    showMarker: true,
-	    retainZoomLevel: false,
-	    }).addTo(map);
+	//new L.Control.GeoSearch({
+	//  provider: new L.GeoSearch.Provider.OpenStreetMap(),
+	//    position: 'topleft',
+	//    showMarker: true,
+	//    retainZoomLevel: false,
+	//    }).addTo(map);
 	    
 	 var lc = L.control.locate({
     	     position: 'topleft',
@@ -634,7 +634,7 @@ var dt = new Date();
 return dt.toIsoString().substring(0, 19);
 }
 
-L.easyButton( 'fa fa-paper-plane-o', function(e){
+L.easyButton( 'fa fa-envelope-o', function(e){
 		
 		var data_drawn = myLayerGroup.toGeoJSON();
 			//var data_drawn =map.pm.Draw.getShapes();
