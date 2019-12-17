@@ -308,7 +308,9 @@
 		})
 		.on('click', function(e) {
 			var properties = e.layer.properties;
-			var n = e.layer.properties.PCM.length;
+			var n = 1;
+			if ('PCM' in e.layer.properties){
+			var n = e.layer.properties.PCM.length;}
 			if (n>1){
 			L.popup(customOptionsF)
 				.setContent(properties.Description)
