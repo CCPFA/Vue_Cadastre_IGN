@@ -242,9 +242,6 @@
 				vectorTileLayerStyles: {
 					sliced: function(properties, zoom) {
 						var p = properties.PCM;
-						var p ='2';
-						if ('PCM' in e.layer.properties){
-						var p = properties.PCM;}
 						return {
 							fillColor: 	(p === "P" ||p==="PF" )? '#008000' :
 										(p === "C"|| p === "CF")? '#ffa07a' :
@@ -275,9 +272,6 @@
 				clearHighlight();
 				highlight = properties.id;
 				var p = properties.PCM;
-				var p ='2';
-				if ('PCM' in e.layer.properties){
-					var p = properties.PCM;}
 				var style = {
 							fillColor: 	(p === "P" ||p==="PF" )? '#008000' :
 										(p === "C"|| p === "CF")? '#ffa07a' :
@@ -298,9 +292,7 @@
 		})
 		.on('click', function(e) {
 			var properties = e.layer.properties;
-			var n = 1;
-			if ('PCM' in e.layer.properties){
-			var n = e.layer.properties.PCM.length;}
+			var n = e.layer.properties.PCM.length;
 			if (n>1){
 			L.popup(customOptionsF)
 				.setContent(properties.Description)
