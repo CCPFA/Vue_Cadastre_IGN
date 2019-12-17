@@ -254,7 +254,9 @@
 				debug: 0,      // logging level (0 to disable, 1 or 2)
 				vectorTileLayerStyles: {
 					sliced: function(properties, zoom) {
-						var p = properties.PCM;
+						var p ='2';
+						if ('PCM' in e.layer.properties){
+						var p = properties.PCM;}
 						return {
 							fillColor: 	(p === "P" ||p==="PF" )? '#008000' :
 										(p === "C"|| p === "CF")? '#ffa07a' :
@@ -285,7 +287,9 @@
 				var properties = e.layer.properties;
 				clearHighlight();
 				highlight = properties.id;
-				var p = properties.PCM;
+				var p ='2';
+				if ('PCM' in e.layer.properties){
+					var p = properties.PCM;}
 				var style = {
 							fillColor: 	(p === "P" ||p==="PF" )? '#008000' :
 										(p === "C"|| p === "CF")? '#ffa07a' :
