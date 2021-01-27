@@ -295,11 +295,11 @@
 			var n = e.layer.properties.PCM.length;
 			if (n>1){
 			L.popup(customOptionsF)
-				.setContent(properties.Description)
+				.setContent(properties.Description||properties.nom)
 				.setLatLng(e.latlng)
 				.openOn(map);}
 			else{L.popup(customOptions)
-				.setContent(properties.Description)
+				.setContent(properties.Description||properties.nom)
 				.setLatLng(e.latlng)
 				.openOn(map);}
 			}
