@@ -77,15 +77,9 @@
 	<a href='#' id='export'></a>
     <script type="text/javascript">
     var CLE_IGN = "choisirgeoportail";//"wgghynmnu00xo0iaea5cfovx";//"waueelcut14w654dbkpq8coh";
-    var url_ign_plans = "https://wxs.ign.fr/"+CLE_IGN+"/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&format=image/png&style=normal";
-    //var url_ign_parcelaire ="https://wxs.ign.fr/"+CLE_IGN+"/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=CADASTRALPARCELS.PARCELLAIRE_EXPRESS&format=image/png&style=normal";
-    var url_ign_parcelaire ='https://wxs.ign.fr/'+CLE_IGN+'/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=CADASTRALPARCELS.PARCELLAIRE_EXPRESS&format=image/png&style=PCI%20vecteur';
-    //http://wxs.ign.fr/wgghynmnu00xo0iaea5cfovx/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.MAPS&format=image/jpeg&style=normal
-    //var url_ign_parcelaire_o ="https://wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=CADASTRALPARCELS.PARCELS&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=bdparcellaire_o&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
-    var url_ign_ortho = "https://wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
-    //var url_ign_ortho = "https://wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=HR.ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
-    //var url_ign_lim = "https://wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=ADMINISTRATIVEUNITS.BOUNDARIES&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
-    var url_ign_noms = "https://wxs.ign.fr/"+CLE_IGN+"/wmts?LAYER=GEOGRAPHICALNAMES.NAMES&EXCEPTIONS=text/xml&FORMAT=image/png&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}"
+    var url_ign_plans = "https://wxs.ign.fr/cartes/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&format=image/png&style=normal";
+    var url_ign_parcelaire ='https://wxs.ign.fr/parcellaire/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=CADASTRALPARCELS.PARCELLAIRE_EXPRESS&format=image/png&style=PCI%20vecteur';
+    var url_ign_ortho = "https://wxs.ign.fr/ortho/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 21, maxNativeZoom: 19,
 										 edgeBufferTiles: 0,
 										 //useCache: false,
@@ -102,7 +96,7 @@
 //				maxZoom: 21, maxNativeZoom: 19, //useCache: true,
 				//edgeBufferTiles: 2
 //		});
-    var ign_plans = L.tileLayer(url_ign_plans, {maxZoom: 21, maxNativeZoom: 18,
+    var ign_plans = L.tileLayer(url_ign_plans, {maxZoom: 21, maxNativeZoom: 19,
 					       edgeBufferTiles: 0,
 					      //useCache: true,
 					      //crossOrigin: false,
@@ -132,13 +126,6 @@
 					    <!-- //crossOrigin: false, -->
 					    <!-- //detectRetina: true, -->
 					    <!-- attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'}); -->
-    var ign_noms = L.tileLayer(url_ign_noms, {maxZoom: 21, maxNativeZoom: 20,
-					       //edgeBufferTiles: 2,
-					    //useCache: true,
-					    zIndex: 8,
-					    //crossOrigin: false,
-					    //detectRetina: true,
-					      attribution : '&copy; <a href="http://www.ign.fr/">IGN</a>'});
     var Topo =  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {maxZoom: 18, maxNativeZoom: 17,
 										  //edgeBufferTiles: 2,
 										 //useCache: true,
@@ -212,8 +199,9 @@
 					'maxHeight': popupheight.toString(),
 	        'className' : 'custom'
 	        }
-	
+	var data={"type":"FeatureCollection","features":[]};
 	L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';// '⌘';
+	
 	var control = new L.Control.fileLayerLoad({
             fileSizeLimit: 256000,
 			}
@@ -228,7 +216,38 @@
 				}
 				highlight = null;
 			};
-			data=JSON.parse(e.result);
+			dataloaded=JSON.parse(e.result).features;
+			for (var i = 0; i <dataloaded.length; i++){
+			if (!('rec' in dataloaded[i].properties )){
+			//console.log(dataloaded[i].properties);}
+			if (('nom' in dataloaded[i].properties)){dataloaded[i].properties.rec=dataloaded[i].properties.nom;}
+				else if (('MATRICULE' in dataloaded[i].properties)){dataloaded[i].properties.rec=dataloaded[i].properties.MATRICULE;}}} 
+			
+			<!-- for (var i = 0; i <dataloaded.length; i++){  -->
+			 <!-- if ('rec' not in dataloaded[i]){ -->
+				<!-- if ('nom' in dataloaded[i]){dataloaded[i].rec=dataloaded[i].nom;} -->
+				<!-- else if ('MATRICULE' in dataloaded[i]){dataloaded[i].rec=dataloaded[i].MATRICULE;}}}  -->
+			  
+			  
+			  
+			
+			data.features = [...data.features, ...dataloaded];
+			//data.features.concat(JSON.parse(e.result).features).unique();
+			//data.features.push(JSON.parse(e.result).features);
+			<!-- if (dataloaded.type=='FeatureCollection'){console.log("ok"); -->
+			<!-- for (var i = 0; i <dataloaded.features.length; i++){ -->
+              <!-- feat = dataloaded.features[i];console.log(feat); -->
+			  <!-- if ('rec' in feat){data.features.push(feat);}else if -->
+			  <!-- ('nom' in feat){feat.rec=feat.nom; -->
+			  <!-- data.features.push(feat);}else if  -->
+			  <!-- ('MATRICULE' in feat){feat.rec=feat.MATRICULE; -->
+			  <!-- data.features.push(feat); -->
+			  <!-- }} -->
+			  
+			<!-- } -->
+			
+			console.log(data)
+			
 			
 			var vg_parcelles = L.vectorGrid.slicer( data, {
 				rendererFactory: L.canvas.tile,
@@ -241,6 +260,7 @@
 				debug: 0,      // logging level (0 to disable, 1 or 2)
 				vectorTileLayerStyles: {
 					sliced: function(properties, zoom) {
+					if (properties.type === 'Polygon'){
 						var p = properties.PCM||properties.pcm||"0";
 						return {
 							fillColor: 	(p === "P" ||p==="PF" )? '#008000' :
@@ -262,7 +282,19 @@
 							weight: 1,
 						}
 					}
-				},
+				else{
+				return {
+							fillColor: 	'transparent',
+							fillOpacity:0,
+							radius:0,
+							stroke: false,
+							fill: false,
+							color: 'transaprent',
+ 							opacity: 0,
+							weight:0,
+
+						}
+				}}},
 				interactive: true,
 				getFeatureId: function(p) {
 					return p.properties.id;
@@ -301,17 +333,33 @@
 			if (n>1){
 			
 			L.popup(customOptionsF)
-				.setContent(properties.Description||properties.fiche||'<b>'+properties.nom+'</b>'+'<br><b>PCM:</b>'+properties.pcm.replace('C','Concédé').replace('M','Mixte').replace('P','Privé').replace('2','Tiers')+'<br><b>Obs:</b>'+properties.obs||properties.Nom||'<b>Num</b>:'+properties.MATRICULE+'<br><b>Type:</b>:'+properties.TYPE)
+				.setContent(properties.Description||properties.fiche||'<b>'+properties.nom+'</b>'+'<br><b>PCM:</b>'+properties.pcm.replace('C','Concédé').replace('M','Mixte').replace('P','Privé').replace('2','Tiers')+'<br><b>Obs:</b>'+properties.obs||properties.Nom)
 				.setLatLng(e.latlng)
 				.openOn(map);}
 			else{L.popup(customOptions)
-				.setContent(properties.Description||properties.fiche||'<b>'+properties.nom+'</b>'+'<br><b>PCM:</b> '+properties.pcm.replace('C','Concédé').replace('M','Mixte').replace('P','Privé').replace('2','Tiers')+'<br><b>Obs:</b> '+properties.obs||properties.Nom||'<b>Num</b>:'+properties.MATRICULE+'<br><b>Type:</b>:'+properties.TYPE)
+				.setContent(properties.Description||properties.fiche||'<b>'+properties.nom+'</b>'+'<br><b>PCM:</b> '+properties.pcm.replace('C','Concédé').replace('M','Mixte').replace('P','Privé').replace('2','Tiers')+'<br><b>Obs:</b> '+properties.obs||properties.Nom)
 				.setLatLng(e.latlng)
 				.openOn(map);}
 			}
 		)
 		.addTo(map);
-				
+		function pointFilter(feature) {
+		  if (feature.geometry.type === "Point") return true
+		}
+		var ponctuels = L.geoJson(data,{filter: pointFilter,    
+                 pointToLayer: function(feature, latlng) {
+                   if ('MATRICULE' in feature.properties){return L.circleMarker(latlng, {color: "green", radius: 4,fillColor: "green",weight: 1, opacity:0.6 ,fillOpacity: 0.8} ).bindPopup("<b>Num:</b> "+feature['properties']['MATRICULE']+'<br><b>Type:</b> '+feature['properties']['TYPE']);}else
+                   {return L.marker(latlng)}
+                   }
+
+                 }).addTo(map);
+				 
+		function linestringFilter(feature) {
+		  if (feature.geometry.type === "LineString") return true
+		}
+		var lignes = L.geoJson(data,{filter: linestringFilter}).addTo(map);
+
+		
 		 // Remove old control, if any
 		 if (window.searchControl)
              {
@@ -337,8 +385,8 @@
 			  autoResize: true,
 		   tooltipLimit: 5,
 		   moveToLocation: function(latlng, title, map) {
-			var zoom = map.getBoundsZoom(latlng.layer.getBounds());
-			map.setView(latlng, zoom); // access the zoom
+			//var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+			map.panTo(latlng)//, zoom); // access the zoom
 			}
             });
 			map.fitBounds(s_parcelles.getBounds());
