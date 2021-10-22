@@ -348,7 +348,7 @@
 		}
 		var ponctuels = L.geoJson(data,{filter: pointFilter,    
                  pointToLayer: function(feature, latlng) {
-                   if ('MATRICULE' in feature.properties){return L.circleMarker(latlng, {color: "green", radius: 4,fillColor: "green",weight: 1, opacity:0.6 ,fillOpacity: 0.8} ).bindPopup("<b>Num:</b> "+feature['properties']['MATRICULE']+'<br><b>Type:</b> '+feature['properties']['TYPE']);}else
+                   if ('MATRICULE' in feature.properties){return L.circleMarker(latlng, {color: "red", radius: 4,fillColor: "orange",weight: 1, opacity:0.6 ,fillOpacity: 0.8} ).bindPopup("<b>Num:</b> "+feature['properties']['MATRICULE']+'<br><b>Type:</b> '+feature['properties']['TYPE']);}else
                    {return L.marker(latlng)}
                    }
 
