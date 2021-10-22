@@ -301,11 +301,11 @@
 			if (n>1){
 			
 			L.popup(customOptionsF)
-				.setContent(properties.Description||properties.fiche||'<b>'+properties.nom+'</b>'+'<br><b>PCM:</b>'+properties.pcm.replace('C','Concédé').replace('M','Mixte').replace('P','Privé').replace('2','Tiers')+'<br><b>Obs:</b>'+properties.obs||properties.Nom||'<b>Num</b>:'+data['properties']['MATRICULE']+'<br><b>Type:</b>:'+'+data['properties']['TYPE'])
+				.setContent(properties.Description||properties.fiche||'<b>'+properties.nom+'</b>'+'<br><b>PCM:</b>'+properties.pcm.replace('C','Concédé').replace('M','Mixte').replace('P','Privé').replace('2','Tiers')+'<br><b>Obs:</b>'+properties.obs||properties.Nom||'<b>Num</b>:'+data['properties']['MATRICULE']+'<br><b>Type:</b>:'+data['properties']['TYPE'])
 				.setLatLng(e.latlng)
 				.openOn(map);}
 			else{L.popup(customOptions)
-				.setContent(properties.Description||properties.fiche||'<b>'+properties.nom+'</b>'+'<br><b>PCM:</b> '+properties.pcm.replace('C','Concédé').replace('M','Mixte').replace('P','Privé').replace('2','Tiers')+'<br><b>Obs:</b> '+properties.obs||properties.Nom||'<b>Num</b>:'+data['properties']['MATRICULE']+'<br><b>Type:</b>:'+'+data['properties']['TYPE'])
+				.setContent(properties.Description||properties.fiche||'<b>'+properties.nom+'</b>'+'<br><b>PCM:</b> '+properties.pcm.replace('C','Concédé').replace('M','Mixte').replace('P','Privé').replace('2','Tiers')+'<br><b>Obs:</b> '+properties.obs||properties.Nom||'<b>Num</b>:'+data['properties']['MATRICULE']+'<br><b>Type:</b>:'+data['properties']['TYPE'])
 				.setLatLng(e.latlng)
 				.openOn(map);}
 			}
