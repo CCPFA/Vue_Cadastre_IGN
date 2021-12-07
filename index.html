@@ -161,7 +161,10 @@
 	    layers: [ign_ortho, ign_parcelaire]
 	});
 	var hash = new L.Hash(map);
-	L.control.layers(baseMaps,overlays).addTo(map);
+	
+	couches=L.control.layers(baseMaps,overlays).addTo(map);
+	
+	
 	ign_ortho.setOpacity(0.5);
 	geofoncier_limites.setOpacity(0);
         map.addLayer(geofoncier_limites)
@@ -247,7 +250,7 @@
 			  
 			<!-- } -->
 			
-			console.log(data)
+			//console.log(data)
 			
 			
 			var vg_parcelles = L.vectorGrid.slicer( data, {
@@ -344,9 +347,11 @@
 			}
 		)
 		.addTo(map);
+		couches.addOverlay(vg_parcelles,'Parcelles Sifon');
 		function pointFilter(feature) {
 		  if (feature.geometry.type === "Point") return true
 		}
+		
 		var ponctuels = L.geoJson(data,{filter: pointFilter,    
                  pointToLayer: function(feature, latlng) {
                    if ('MATRICULE' in feature.properties){if (feature.properties.TYPE=='POINT_NUMERIQUE'){return L.circleMarker(latlng, {color: "red", radius: 4,fillColor: "blue",weight: 1, opacity:0.6 ,fillOpacity: 0.8} ).bindPopup("<b>Num:</b> "+feature['properties']['MATRICULE']+'<br><b>Type:</b> '+feature['properties']['TYPE']);}
@@ -413,6 +418,8 @@
           legend.addTo(map);
           map.legenddisplay = this;}
            });
+	  
+	  
            
 	//map.on('baselayerchange',function(eo)
 	//  {
