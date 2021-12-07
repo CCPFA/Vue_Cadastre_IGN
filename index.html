@@ -347,7 +347,9 @@
 			}
 		)
 		.addTo(map);
-		couches.addOverlay(vg_parcelles,'Parcelles Sifon');
+		
+		//console.log(e.filename.split(".")[0])
+		couches.addOverlay(vg_parcelles,'Parcelles '+ e.filename.split(".")[0]);
 		function pointFilter(feature) {
 		  if (feature.geometry.type === "Point") return true
 		}
