@@ -366,7 +366,31 @@
 		function linestringFilter(feature) {
 		  if (feature.geometry.type === "LineString") return true
 		}
-		var lignes = L.geoJson(data,{filter: linestringFilter}).addTo(map);
+		function get_random_color() 
+			{
+				var letters = '0123456789ABCDEF'.split('');
+				var color = '#';
+				for (var i = 0; i < 6; i++ ) 
+				{
+				   color += letters[Math.round(Math.random() * 15)];
+				}
+			return color;
+			}
+		function onEachDessin(feature, layer) {
+				// does this feature have a property named popupContent?
+				if ((feature.properties.nom||feature.properties.Nom) && feature.properties.created) {
+					label=feature.properties.nom||feature.properties.Nom
+					html='<b>'+label+'</b>';
+					layer.bindTooltip(html);
+				}
+			}
+			
+
+		
+		
+		var lignes = L.geoJson(data,{filter: linestringFilter,onEachFeature: onEachDessin,style: function (feature) {
+		return {color:get_random_color() };
+	} }).addTo(map);
 
 		
 		 // Remove old control, if any
