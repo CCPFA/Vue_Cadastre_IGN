@@ -381,7 +381,7 @@
 				if ((feature.properties.nom||feature.properties.Nom) && feature.properties.created) {
 					label=feature.properties.nom||feature.properties.Nom
 					html='<b>'+label+'</b>';
-					layer.bindTooltip(html);
+					layer.bindTooltip(html,{sticky: true});
 				}
 			}
 			
