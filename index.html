@@ -684,16 +684,16 @@ L.easyButton( 'fa fa-envelope-o', function(e){
 		
 		},{position: 'bottomleft'}).addTo(map);
 		
-//L.easyButton( 'fa-download', function(e){
+L.easyButton( 'fa-download', function(e){
 		
-//		var data_drawn = myLayerGroup.toGeoJSON();
-//			//var data_drawn =map.pm.Draw.getShapes();
-//            // Stringify the GeoJson 
-//			var timestamp=showTime().replace(':','_');
-//            var convertedData = 'application/force-download;charset=utf-8,' + encodeURIComponent(JSON.stringify(data_drawn));
-//			downloadURI('data:' + convertedData, "Geom"+timestamp+".geojson"); 
+		var data_drawn = myLayerGroup.toGeoJSON();
+			//var data_drawn =map.pm.Draw.getShapes();
+            // Stringify the GeoJson 
+			var timestamp=showTime().replace(':','_');
+           var convertedData = 'application/force-download;charset=utf-8,' + encodeURIComponent(JSON.stringify(data_drawn));
+			downloadURI('data:' + convertedData, "Geom"+timestamp+".geojson"); 
 		
-//		}).addTo(map);
+		},{position: 'bottomleft'}).addTo(map);
   
     </script>
 </body>
