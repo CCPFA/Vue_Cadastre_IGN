@@ -362,10 +362,14 @@
 														  else{return L.circleMarker(latlng, {color: "red", radius: 4,fillColor: "#00ff00",weight: 1, opacity:0.6 ,fillOpacity: 0.8} ).bindTooltip("<b>Num:</b> "+feature['properties']['matricule']+'<br><b>Type:</b> '+feature['properties']['type']);}
 					}
 					else
-                   {return L.marker(latlng)}
+                   {
+					if ((feature.properties.nom||feature.properties.Nom) && feature.properties.created) {
+					label=feature.properties.nom||feature.properties.Nom
+					html='<b>'+label+'</b>';
+				   return L.marker(latlng).bindTooltip(html,{sticky: true});}
                    }
-
-                 });
+					}
+                 }).addTo(map);
 				 
 		function linestringFilter(feature) {
 		  if (feature.geometry.type === "LineString") return true
