@@ -78,9 +78,9 @@
 	<a href='#' id='export'></a>
     <script type="text/javascript">
     var CLE_IGN = "choisirgeoportail";//"wgghynmnu00xo0iaea5cfovx";//"waueelcut14w654dbkpq8coh";
-    var url_ign_plans = "https://wxs.ign.fr/cartes/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&format=image/png&style=normal";
-    var url_ign_parcelaire ='https://wxs.ign.fr/parcellaire/geoportail/wmts?service=WMTS&request=GetTile&version=1.0.0&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=CADASTRALPARCELS.PARCELLAIRE_EXPRESS&format=image/png&style=PCI%20vecteur';
-    var url_ign_ortho = "https://wxs.ign.fr/ortho/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}";
+    var url_ign_plans = "https://data.geopf.fr/wmts?SERVICE=WMTS&VERSION=1.0.0&request=GetTile&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&format=image/png&style=normal";
+    var url_ign_parcelaire ='https://data.geopf.fr/wmts?SERVICE=WMTS&VERSION=1.0.0&request=GetTile&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=CADASTRALPARCELS.PARCELLAIRE_EXPRESS&format=image/png&style=PCI%20vecteur';
+    var url_ign_ortho = "https://data.geopf.fr/wmts?SERVICE=WMTS&VERSION=1.0.0&request=GetTile&tilematrixset=PM&tilematrix={z}&tilecol={x}&tilerow={y}&layer=HR.ORTHOIMAGERY.ORTHOPHOTOS&format=image/jpeg&style=normal";
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 21, maxNativeZoom: 19,
 										 edgeBufferTiles: 0,
 										 //useCache: false,
